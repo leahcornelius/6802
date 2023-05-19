@@ -1,0 +1,8 @@
+*-bak
+*-backups
+*-cache*
+*-bak*
+*autosave*
+\#auto_saved_files\#
+*bin
+*hex

@@ -8,6 +8,23 @@
   )
 
 
+  (sheet (at 186 35) (size 51 48) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 333dc95e-1212-4562-83c9-7eee6e0243bf)
+    (property "Sheetname" "Connectors" (at 186 34.2884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "connectors.kicad_sch" (at 186 83.5846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "6802 v1"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "2"))
+      )
+    )
+  )
+
   (sheet (at 34 36) (size 50 49) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
@@ -38,6 +55,23 @@
     (instances
       (project "6802 v1"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 111.76 35.56) (size 50.8 48.26) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid bed2405d-2e60-4918-bd56-516da766b029)
+    (property "Sheetname" "Glue Logic" (at 111.76 34.8484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "gluelogic.kicad_sch" (at 111.76 84.4046 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "6802 v1"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "5"))
       )
     )
   )

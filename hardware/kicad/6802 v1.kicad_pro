@@ -505,6 +505,10 @@
       ""
     ],
     [
+      "333dc95e-1212-4562-83c9-7eee6e0243bf",
+      "Connectors"
+    ],
+    [
       "bfe21baf-1342-48ad-994b-20326b13bad2",
       "Memory"
     ],
@@ -515,6 +519,10 @@
     [
       "366e0d9a-56e6-4430-93d3-3a271557a8cc",
       "CPU"
+    ],
+    [
+      "bed2405d-2e60-4918-bd56-516da766b029",
+      "Glue Logic"
     ]
   ],
   "text_variables": {}
