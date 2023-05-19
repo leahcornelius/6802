@@ -16,7 +16,7 @@
              .LI    OFF                 ; Dont print the assembly to console when assembling
              .CR    6800                ; Select cross overlay (Motorola 6802)
              .OR    $8000               ; The program will start at address $8000 
-             .TF    corn8.bin, BIN        ; Set raw binary output
+             .TF    blink.bin, BIN        ; Set raw binary output
 
 ;------------------------------------------------------------------------
 ;  Declaration of constants
@@ -100,6 +100,7 @@ UPDATE_PATTERN  LDAA    PORT_B_PATTERN            ; Get current LED pattern
 
 REFRESH_LEDS    LDAA    PORT_B_PATTERN
                 STAA    PIA_B           ; Send to PIA
+                STAA    PIA_A
                 RTS
 
 
