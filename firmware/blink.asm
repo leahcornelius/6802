@@ -16,7 +16,7 @@
              .LI    OFF                 ; Dont print the assembly to console when assembling
              .CR    6800                ; Select cross overlay (Motorola 6802)
              .OR    $8000               ; The program will start at address $8000 
-             .TF    blink.bin, BIN        ; Set raw binary output
+             .TF    blink.hex, BIN        ; Set raw binary output
 
 ;------------------------------------------------------------------------
 ;  Declaration of constants
@@ -60,14 +60,11 @@ RESET           LDS     #$007F          ; Reset stack pointer
 ;------------------------------------------------------------------------
 
 MAIN            BSR     REFRESH_LEDS    ; Show pattern on LEDS
-                BSR     .SETUP_DELAY
+                LDAA    #0       ; ~1s delay
+                LDAB    #%1111.1111 
                 BSR     DELAY           ; Wait for ~1 s
                 BSR     UPDATE_PATTERN  ; Update the in memory pattern to be sent to LEDs
                 BRA     MAIN            ; Loop forever
-
-.SETUP_DELAY    LDAA #%1111.1111        ; ~1s delay
-                LDAB #%1111.1111 
-                RTS
 ;------------------------------------------------------------------------
 ; Delay subroutine
 ; Uses two bytes, set to the values of accumulators A & B (high and low)
@@ -94,7 +91,7 @@ DELAY           STAA    TIMER_HIGH         ; Set the specified delay (high)
 ;------------------------------------------------------------------------
 
 UPDATE_PATTERN  LDAA    PORT_B_PATTERN            ; Get current LED pattern
-                EORA    #%1111.1111     ; Toggle all bits
+                INCA
                 STAA    PORT_B_PATTERN
                 RTS
 

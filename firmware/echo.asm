@@ -8,7 +8,7 @@
              .LI    OFF                 ; Dont print the assembly to console when assembling
              .CR    6800                ; Select cross overlay (Motorola 6802)
              .OR    $8000               ; The program will start at address $8000 
-             .TF    echo.bin, BIN        ; Set raw binary output
+             .TF    echo.hex, BIN        ; Set raw binary output
 
 ;------------------------------------------------------------------------
 ;  Declaration of constants
