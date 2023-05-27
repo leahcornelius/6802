@@ -163,13 +163,13 @@ INTERUPT        SEI                         ; Disable futher IRQ while processin
                 STX     INDEX_PTR_IR_L      ; We are now free to use them ourselves
                 LDAA    UART_CONTROL        ; Read ACIA status register
                 BITA    #UART_RX_STATUS      ; Check if there is a byte pending reading from ACIA
-                BNE     .UART_TX_TEST       ; If not skip...
+                BEQ     .UART_TX_TEST       ; If not skip...
                 LDS     USER_CODE_END_L     ; Set stack to next user code byte         
                 LDAB    UART_DATA           ; Read data from ACIA
                 PSHB
                 STS     USER_CODE_END_L     ; Update user code index
 .UART_TX_TEST   BITA    #UART_TX_STATUS      ; Check if it is time to send a byte from TX buffer
-                BNE     .PIA_TESTS         ; If not, then skip...
+                BEQ     .PIA_TESTS         ; If not, then skip...
                 LDX     TX_BUF_IND_OUT      ; Load the index of next byte to transmit
                 CPX     TX_BUF_IND_IN       ; Check if the last byte has already been sent (in=out)
                 BEQ     .PIA_TESTS         ; No bytes pending tx, skip
