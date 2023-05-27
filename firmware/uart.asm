@@ -225,7 +225,7 @@ FATAL_ERR_LOOP  SEI                         ; Only NMA or reset can escape fatal
 ;------------------------------------------------------------------------
 
                 .NO     $FFF8,$FF
-                .DA     RESET            ; IRQ
+                .DA     INTERUPT         ; IRQ
                 .DA     RESET            ; SWI (Not used)
                 .DA     RESET            ; NMI (Not used)
                 .DA     RESET            ; Reset
