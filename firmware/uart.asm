@@ -190,6 +190,7 @@ INTERUPT        SEI                         ; Disable futher IRQ while processin
                 STAB    UART_DATA
                 INX         
                 STX     TX_BUF_IND_OUT
+                BRA     .PIA_TESTS
 .DISABLE_TX_IRQ >DISABLE_TX_IRQ
                 CLRA
 .PIA_TESTS      BRA     .DONE               ; Disable usercode erase & exec for now!!
