@@ -36,13 +36,22 @@ INIT_UART           .MA
                 LDAA    #UART_RESET_BITS    ; Reset the ACIA
                 STAA    UART_CONTROL
                 NOP
+                >ENABLE_TX_IRQ
+                    .EM              
+
+DISABLE_TX_IRQ  .MA
+                LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                STAA    UART_CONTROL        ; Store to ACIA's register
+                .EM
+ENABLE_TX_IRQ  .MA
                 LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
                 ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
                 ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
                 ORAA    #UART_TX_IRQ_BIT    ; and TX interupts
                 STAA    UART_CONTROL        ; Store to ACIA's register
-                    .EM              
-
+                .EM
 ;------------------------------------------------------------------------
 ;  Data
 ;------------------------------------------------------------------------
@@ -149,6 +158,7 @@ MAIN            LDX     MESSAGE_INDEX
                 STAA    0, X
                 STAA    PIA_B
                 BSR     DELAY
+                >ENABLE_TX_IRQ          ; THere is now waiting data
                 BRA     MAIN            ; Loop until reset
 
 
@@ -172,7 +182,7 @@ INTERUPT        SEI                         ; Disable futher IRQ while processin
                 BEQ     .PIA_TESTS         ; If not, then skip...
                 LDX     TX_BUF_IND_OUT      ; Load the index of next byte to transmit
                 CPX     TX_BUF_IND_IN       ; Check if the last byte has already been sent (in=out)
-                BEQ     .PIA_TESTS         ; No bytes pending tx, skip
+                BEQ     .DISABLE_TX_IRQ         ; No bytes pending tx, skip
                 CPX     #PAGE_ONE_TOP-1     ; Check if we have reached the end of the buffer 
                 BNE     .SKIP_WRAP_X
                 LDX     #TX_BUFFER_START-1  ; We read +1 bytes from X so set this -1 when wraping
@@ -180,6 +190,8 @@ INTERUPT        SEI                         ; Disable futher IRQ while processin
                 STAB    UART_DATA
                 INX         
                 STX     TX_BUF_IND_OUT
+.DISABLE_TX_IRQ >DISABLE_TX_IRQ
+                CLRA
 .PIA_TESTS      BRA     .DONE               ; Disable usercode erase & exec for now!!
 ; ----- start disabled! -------
 .EXEC_TEST      LDAA    PIA_CON_A
