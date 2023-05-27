@@ -39,6 +39,7 @@ INIT_UART           .MA
                 LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
                 ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
                 ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                ORAA    #UART_TX_IRQ_BIT    ; and TX interupts
                 STAA    UART_CONTROL        ; Store to ACIA's register
                     .EM              
 
@@ -97,7 +98,7 @@ UC_EMPTY_FLAG   .EQ     $FF           ; Value written during USERCODE_ERASE subr
 UART_BAUD_X16   .EQ     %0000.0001    ; x16 divisor 
 UART_RESET_BITS .EQ     %0000.0011    ; Resets the UART chip
 UART_MODE_BITS  .EQ     %0001.0100    ; 8n1 (data/stop bits, parity) = 5
-UART_TX_IRQ_BIT .EQ     %0110.0000    ; (En/Dis)able tx empty/ready interupts
+UART_TX_IRQ_BIT .EQ     %0010.0000    ; (En/Dis)able tx empty/ready interupts
 UART_RX_IRQ_BIT .EQ     %1000.0000    ; (En/Dis)able rx buffer full interupts
 ; UART status register bits
 UART_RX_STATUS  .EQ     %0000.0001    ; 0=no data, 1=data to be read
