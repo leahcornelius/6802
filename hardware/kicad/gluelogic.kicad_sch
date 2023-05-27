@@ -725,13 +725,13 @@
   (symbol (lib_id "74xx:74LS90") (at 33.02 175.26 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 2ffec75f-142b-4b9d-862c-142aa7d78e82)
-    (property "Reference" "U?" (at 34.9759 161.29 0)
+    (property "Reference" "U15" (at 34.9759 161.29 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Value" "74LS90" (at 34.9759 163.83 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Package_DIP:DIP-12_W7.62mm_Socket" (at 33.02 175.26 0)
+    (property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket" (at 33.02 175.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS90" (at 33.02 175.26 0)
@@ -752,7 +752,7 @@
     (instances
       (project "6802 v1"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "U?") (unit 1)
+          (reference "U15") (unit 1)
         )
       )
     )
@@ -784,7 +784,7 @@
           (reference "D1") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "D?") (unit 1)
+          (reference "D1") (unit 1)
         )
       )
     )
@@ -815,7 +815,7 @@
           (reference "#PWR07") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR07") (unit 1)
+          (reference "#PWR041") (unit 1)
         )
       )
     )
@@ -824,7 +824,7 @@
   (symbol (lib_id "power:+5V") (at 33.02 160.02 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 54e4cf64-8bd4-4969-aac5-a36dd56a3b96)
-    (property "Reference" "#PWR044" (at 33.02 163.83 0)
+    (property "Reference" "#PWR042" (at 33.02 163.83 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 33.02 156.21 0)
@@ -840,7 +840,7 @@
     (instances
       (project "6802 v1"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR044") (unit 1)
+          (reference "#PWR042") (unit 1)
         )
       )
     )
@@ -855,7 +855,7 @@
     (property "Value" "3.3k" (at 38.1 119.38 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 37.338 119.38 90)
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (at 37.338 119.38 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 35.56 119.38 0)
@@ -872,7 +872,7 @@
           (reference "R1") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "R?") (unit 1)
+          (reference "R4") (unit 1)
         )
       )
     )
@@ -903,7 +903,7 @@
           (reference "#PWR06") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR06") (unit 1)
+          (reference "#PWR040") (unit 1)
         )
       )
     )
@@ -918,7 +918,7 @@
     (property "Value" "Reset" (at 25.4 129.54 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 20.32 129.54 0)
+    (property "Footprint" "Button_Switch_THT:SW_PUSH_6mm" (at 20.32 129.54 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 20.32 129.54 0)
@@ -935,7 +935,7 @@
           (reference "SW1") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "SW?") (unit 1)
+          (reference "SW1") (unit 1)
         )
       )
     )
@@ -966,7 +966,7 @@
           (reference "#PWR05") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR05") (unit 1)
+          (reference "#PWR039") (unit 1)
         )
       )
     )
@@ -975,7 +975,7 @@
   (symbol (lib_id "power:GND") (at 17.78 185.42 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9b3d9b5c-ebfa-486c-81ab-642755468bcb)
-    (property "Reference" "#PWR042" (at 17.78 191.77 0)
+    (property "Reference" "#PWR043" (at 17.78 191.77 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 17.78 190.5 0)
@@ -991,7 +991,7 @@
     (instances
       (project "6802 v1"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR042") (unit 1)
+          (reference "#PWR043") (unit 1)
         )
       )
     )
@@ -1035,7 +1035,7 @@
           (reference "U4") (unit 2)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "U4") (unit 2)
+          (reference "U14") (unit 2)
         )
       )
     )
@@ -1050,7 +1050,7 @@
     (property "Value" "10uF" (at 39.37 127 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 36.5252 133.35 0)
+    (property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (at 36.5252 133.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 35.56 129.54 0)
@@ -1067,7 +1067,7 @@
           (reference "C1") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "C?") (unit 1)
+          (reference "C3") (unit 1)
         )
       )
     )
@@ -1076,7 +1076,7 @@
   (symbol (lib_id "power:GND") (at 33.02 193.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f87785f3-b015-44b1-a281-f6014697356d)
-    (property "Reference" "#PWR043" (at 33.02 199.39 0)
+    (property "Reference" "#PWR044" (at 33.02 199.39 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 33.02 198.12 0)
@@ -1092,7 +1092,7 @@
     (instances
       (project "6802 v1"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "#PWR043") (unit 1)
+          (reference "#PWR044") (unit 1)
         )
       )
     )
@@ -1107,7 +1107,7 @@
     (property "Value" "74LS04" (at 43.18 38.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Footprint" "" (at 43.18 43.18 0)
+    (property "Footprint" "Package_DIP:DIP-14_W7.62mm_Socket" (at 43.18 43.18 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS04" (at 43.18 43.18 0)
@@ -1133,7 +1133,7 @@
           (reference "U4") (unit 1)
         )
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/bed2405d-2e60-4918-bd56-516da766b029"
-          (reference "U4") (unit 1)
+          (reference "U14") (unit 1)
         )
       )
     )
