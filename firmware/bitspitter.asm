@@ -61,8 +61,6 @@ USER_CODE_START .EQ     PAGE_ONE_TOP - 1
 
 ; Labels used as constants (not addresses)
 DELAY_BASE      .EQ     12500         ; ~100ms of clock cycles 
-BAUD_RATE_DELAY .EQ     2             ; Delay/period of clock signal = BAUD_RATE_DELAY * 100 ms
-START_TX_DELAY  .EQ     5               ; START_TX_DELAY * 100 ms wait before starting after reset
 
 ; Bit masks for TX operations
 TX_DATA         .EQ     %0000.0100
@@ -87,7 +85,7 @@ SET_PORT_MODE  .MA      A_MODE,B_MODE
                 LDAA    #%0000.0100     ; Select data registers again
                 STAA    CON_A
                 STAA    CON_B
-               .EM
+            .EM
 
 WRITE_PORT_DATA_A   .MA     DATA   
                 LDAA    ]1
@@ -99,9 +97,9 @@ WRITE_PORT_DATA_B   .MA     DATA
                     .EM
 
 CLOCK_PULSE         .MA     
-                EORB    TX_CLK
+                EORB    #TX_CLK
                 STAB    PIA_B
-                JSR     DELAY_LOOP
+                JSR     DELAY_100MS
             .EM
 
 ;------------------------------------------------------------------------
@@ -110,11 +108,12 @@ CLOCK_PULSE         .MA
 LOAD_MSG_DATA   STS     >STACK_POINTER_L     ; Back up the stack pointer to RAM
                 LDS     #PAGE_ONE_TOP-1
                 LDX     #MESSAGE_DATA_END
-.READ_BYTE      LDAA    0,X
+.NEXT_BYTE      LDAA    0,X
                 PSHA    
                 DEX     
                 CPX     #MESSAGE_DATA
-                BNE     .READ_BYTE
+                BNE     .NEXT_BYTE
+
                 STS     >USER_CODE_END_L      ; Points to the last user code entry
                 LDS     >STACK_POINTER_L      ; Return the stack to its inital state so we can return from subroutine
                 RTS
@@ -125,13 +124,10 @@ RESET           LDS     #$7F                        ; Reset stack pointer
                 STAA    PORT_A_DATA
                 STAA    PORT_B_DATA
                 BSR     LOAD_MSG_DATA
-                LDAA    #START_TX_DELAY
-                STAA    DELAY_ITERS
-                JSR     DELAY_LOOP                
+                JSR     DELAY_100MS
+                JMP     MAIN                
 
 MAIN            LDX     #USER_CODE_START
-                LDAA    BAUD_RATE_DELAY
-                STAA    DELAY_ITERS
                 BSR     START_TX
 .LOOP           NOP
 .TX_BYTE        BSR     START_FRAME
@@ -144,7 +140,7 @@ MAIN            LDX     #USER_CODE_START
                 LDAB    #TX_DATA            ; Otherwise, set tx bit (in acc b)
 .BIT_LOW        ORAB    #TX_CLK             ; Set tx clk bit high (OR acc B with #TX_CLK)
                 STAB    PIA_B               ; Output on PIA
-                JSR     DELAY_LOOP          ; Wait for correct time for selected BAUD rate
+                JSR     DELAY_100MS          ; Wait for correct time for selected BAUD rate
                 CLR     PIA_B               ; Clears entire port, ending clock pulse
                 DEC     TX_BIT_INDEX
                 BNE     .NEXT_BIT           ; Not on the last bit yet
@@ -157,44 +153,44 @@ MAIN            LDX     #USER_CODE_START
 
 
 START_TX        LDAB    #TX_FRAME_CTRL
-                LDAA    #8                 ; 8 clock cycles with CTRL high
+                STAB    PIA_B
+                LDAA    #7                 ; 7 clock cycles with CTRL high
 .LOOP           >CLOCK_PULSE               ; H
                 >CLOCK_PULSE               ; L
                 DECA
                 BNE     .LOOP
+                CLRB    
+                >CLOCK_PULSE               ; H
+                >CLOCK_PULSE               ; L
                 RTS
 
-END_TX          CLR     PIA_A
+END_TX          CLR     PIA_B
                 RTS
 
-START_FRAME     LDAB    BAUD_RATE_DELAY
-                STAB DELAY_ITERS
-                CLRB
+START_FRAME     CLRB
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
-                ORAB    TX_FRAME_CTRL
+                ORAB    #TX_FRAME_CTRL
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
-                EORB    TX_FRAME_CTRL
+                EORB    #TX_FRAME_CTRL
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
-                EORB    TX_FRAME_CTRL
+                EORB    #TX_FRAME_CTRL
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
-                EORB    TX_FRAME_CTRL
+                EORB    #TX_FRAME_CTRL
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
                 RTS
 
-END_FRAME       LDAB    BAUD_RATE_DELAY
-                STAB    DELAY_ITERS
-                LDAB    TX_FRAME_CTRL
-                ORAB    TX_CLK
+END_FRAME       LDAB    #TX_FRAME_CTRL
+                ORAB    #TX_CLK
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
-                EORB    TX_FRAME_CTRL
+                EORB    #TX_FRAME_CTRL
                 >CLOCK_PULSE                ; H
                 >CLOCK_PULSE                ; L
                 RTS                
@@ -205,12 +201,6 @@ DELAY_100MS     STX    >INDEX_POINTER_L         ; Backup index pointer
 .LOOP           DEX                        ; to 0
                 BNE    .LOOP               ; Not 0 yet!
                 LDX    >INDEX_POINTER_L     ; Replace index pointer to backed up value
-                RTS
-
-DELAY_LOOP      LDAA   DELAY_ITERS
-.LOOP           BSR    DELAY_100MS         ; Uses value in ram and completes that many 100ms delays
-                DECA   
-                BNE    .LOOP
                 RTS
 
 NOP_LOOP        NOP
