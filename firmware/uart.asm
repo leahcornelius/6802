@@ -33,24 +33,24 @@ SET_PORT_MODE  .MA      A_MODE,B_MODE
                .EM
 
 INIT_UART           .MA     
-                LDAA    #UART_RESET_BITS    ; Reset the ACIA
-                STAA    UART_CONTROL
+                LDAB    #UART_RESET_BITS    ; Reset the ACIA
+                STAB    UART_CONTROL
                 NOP
-                >ENABLE_TX_IRQ
+                >DISABLE_TX_IRQ
                     .EM              
 
 DISABLE_TX_IRQ  .MA
-                LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
-                ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
-                ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
-                STAA    UART_CONTROL        ; Store to ACIA's register
+                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                STAB    UART_CONTROL        ; Store to ACIA's register
                 .EM
 ENABLE_TX_IRQ  .MA
-                LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
-                ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
-                ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
-                ORAA    #UART_TX_IRQ_BIT    ; and TX interupts
-                STAA    UART_CONTROL        ; Store to ACIA's register
+                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                ORAB    #UART_TX_IRQ_BIT    ; and TX interupts
+                STAB    UART_CONTROL        ; Store to ACIA's register
                 .EM
 ;------------------------------------------------------------------------
 ;  Data
@@ -154,8 +154,7 @@ MAIN            LDX     MESSAGE_INDEX               ; Load pointer to next char 
                 LDX     #MESSAGE_DATA               ; Wrap to message begining
 .STORE_MSG_IDX  STX     MESSAGE_INDEX               ; Save X (next char ptr) to RAM
                 LDX     TX_BUFFER_TAIL              ; Load ptr of TX buffer next free slot (tail)
-                STAA    0, X                        ; Append the next char from ROM message to TX buffer
-                STAA    PIA_B                       ; Also output on LEDs as visual confirmation
+                STAA    0,X                         ; Append the next char from ROM message to TX buffer
                 INX                                 ; Seek next position within TX buffer
                 CPX     #TX_BUFFER_END              ; Have we reached end of buffer's RAM space?
                 BNE     .STORE_TX_PTR               ; If not skip to .STORE_TX_PTR
@@ -217,6 +216,7 @@ IRQ_HANDLER     SEI                         ; Disable futher IRQ while processin
                 BEQ     .DISABLE_TX_IRQ     ; If so (no unsent bytes), skip to .DISABLE_TX_IRQ
                 LDAB    1,X                 ; Otherwise, load char into acc B (head+1)
                 STAB    UART_DATA           ; And send to ACIA TX register
+                STAB    PIA_B               ; Also output on LEDs as visual confirmation
                 INX                         ; Seek next buffer location
                 CPX     #TX_BUFFER_END      ; Check if we have reached end of allocated memory
                 BNE     .STORE_TX_PTR       ; If not, skip to .STORE_TX_PTR
