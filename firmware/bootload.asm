@@ -32,33 +32,6 @@ SET_PORT_MODE  .MA      A_MODE,B_MODE
                 STAA    PIA_CON_B
                .EM
 
-INIT_UART           .MA     
-                LDAB    #UART_RESET_BITS    ; Reset the ACIA
-                STAB    UART_CONTROL
-                NOP
-                >DISABLE_TX_IRQ
-                    .EM              
-
-DISABLE_TX_IRQ  .MA
-                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
-                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
-             ;   ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
-                STAB    UART_CONTROL        ; Store to ACIA's register
-                .EM
-ENABLE_TX_IRQ  .MA
-                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
-                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
-                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
-                ORAB    #UART_TX_IRQ_BIT    ; and TX interupts
-                STAB    UART_CONTROL        ; Store to ACIA's register
-                .EM
-;------------------------------------------------------------------------
-;  Data
-;------------------------------------------------------------------------
-; - String data to send
-MESSAGE_DATA        .DB     "Beep Boop, "
-MESSAGE_DATA_END    .DA     0
-
 
 ;------------------------------------------------------------------------
 ;  Address lables
@@ -78,10 +51,15 @@ PORT_B_DATA     .EQ     $11           ;                                         
 TX_BUFFER_TAIL  .EQ     $12           ; 12 & 13 point to next free location in TX buffer - write/input
 TX_BUFFER_HEAD  .EQ     $14           ; 14 & 15 point to the next byte to be sent over UART - read/output
                                       ; if TAIL==HEAD then there are no pending bytes
+RX_BUFFER_TAIL  .EQ     $16
+RX_BUFFER_HEAD  .EQ     $18
 
-TX_BUFFER_START .EQ     $3EFF                 ; 256 bytes of UART TX buffer (start)
-TX_BUFFER_END   .EQ     $3FFF                 ;                                                                                  (end)
- 
+TX_ENQUEUE_PTR  .EQ     $1a            ; 2 bytes, used to point to data when 
+TX_BUFFER_START .EQ     $3FFF                 ; 256 bytes of UART TX buffer (start)
+TX_BUFFER_END   .EQ     $3EFF                 ;       (end)
+RX_BUFFER_START .EQ     $3EFE
+RX_BUFFER_END   .EQ     $3E9A
+
 ; --- PIA registers (start at 0x80)
 PIA_A           .EQ     $8000           ; Pia data register A 
 PIA_B           .EQ     $8001           ; Pia data register B 
@@ -124,14 +102,29 @@ PIA_CX0_FLAG    .EQ     %1000.0000
 RESET           LDS     #$3FF                        ; Reset stack pointer
                 LDX     #DELAY_BASE                 ; Set the delay to default at 100ms 
                 STX     DELAY_SEL_LOW  
-                
-
+                ; Reset pointers
+                LDX     #USER_CODE_START            ; User code last entry/head pointer
+                STX     USER_CODE_HEADL             
+                LDX     #TX_BUFFER_START            ; UART TX buffer I/O pointers
+                STX     TX_BUFFER_TAIL
+                STX     TX_BUFFER_HEAD  
+                LDX     #RX_BUFFER_START
+                STX     RX_BUFFER_HEAD
+                STX     RX_BUFFER_TAIL           
                 >SET_PORT_MODE  #%1111.1111,#%1111.1111 ; PIA PA0-7 & PB0-7 all output 
                 CLRA
                 STAA    PORT_A_DATA
                 STAA    PORT_B_DATA
-                >INIT_UART                          ; Setup ACIA for UART comms
-               ; CLI                                 ; Enable interupts
+
+                LDAB    #UART_RESET_BITS    ; Reset the ACIA
+                STAB    UART_CONTROL        
+                ; Configure ACIA
+                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                STAB    UART_CONTROL        ; Store to ACIA's register
+                                          
+                CLI                                 ; Enable interupts
                 JMP     MAIN                        ; Begin MAIN subroutine
 
 MAIN            LDAA    UART_CONTROL
@@ -146,6 +139,8 @@ MAIN            LDAA    UART_CONTROL
 .END_MAIN       BSR     DELAY
                 BRA     MAIN
 
+QUEUE_TX        TSX                         ; Copy stack pointer into index
+                LDS     TX_BUFFER_TAIL      ; Set stack to next tx buffer slot
 
 
 ; Delay subroutine
@@ -159,7 +154,46 @@ DELAY           LDX    DELAY_SEL_LOW       ; Set delay counter and count down
 ; Interupt handlers
 ;------------------------------------------------------------------------
 
+; IRQ/ maskable handler
+IRQ_HANDLER     SEI                         ; Disable futher IRQ while processing this one
+                STS     STACK_PTR_IR_L      ; Backup stack & index pointers
+                STX     INDEX_PTR_IR_L      ; We are now free to use them ourselves
+                LDAA    UART_CONTROL        ; Read ACIA status register
+                BITA    #UART_RX_STATUS     ; Check if there is a byte pending reading from ACIA
+                BEQ     .UART_TX_TEST       ; If not skip to .UART_TX_TEST 
+                LDX     USER_CODE_HEADL     ; Load ptr of next unwritten usercode byte into X       
+                LDAB    UART_DATA           ; Read byte from ACIA into acc B
+                STAB    0,X                 ; Append byte to user code
+                DEX                         ; Seek next UC entry location
+                CPX     #USER_CODE_END      ; Check if we have reached end of allocated RAM for UC
+                BEQ     .UCODE_OVERFLOW     ; If so, handle this (as considered error condition)
+                STX     USER_CODE_HEADL     ; Save X (ptr of most recent UC entry) to RAM
+.UART_TX_TEST   BITA    #UART_TX_STATUS     ; Check if ACIA indicates TX ready
+                BEQ     .UART_TST_END       ; If not, then skip to .UART_TST_END
+                LDX     TX_BUFFER_HEAD      ; Load ptr of next byte awaiting TX in UART TX buffer
+                CPX     TX_BUFFER_TAIL      ; Check if there is no unsent bytes in buffer (tail==head)
+                BEQ     .DISABLE_TX_IRQ     ; If so (no unsent bytes), skip to .DISABLE_TX_IRQ
+                LDAB    1,X                 ; Otherwise, load char into acc B (head+1)
+                STAB    UART_DATA           ; And send to ACIA TX register
+                STAB    PIA_B               ; Also output on LEDs as visual confirmation
+                INX                         ; Seek next buffer location
+                CPX     #TX_BUFFER_END      ; Check if we have reached end of allocated memory
+                BNE     .STORE_TX_PTR       ; If not, skip to .STORE_TX_PTR
+                LDX     #TX_BUFFER_START    ; Wrap to start of allocated memory (tx buffer is circular)
+.STORE_TX_PTR   STX     TX_BUFFER_HEAD      ; Save X (tx buff head ptr) to RAM
+                BRA     .UART_TST_END       ; Skip disabling TX interupts if we just sent a char
+.DISABLE_TX_IRQ >DISABLE_TX_IRQ             ; Disable TX ready interupts from ACIA if no chars pending TX
 
+.UART_TST_END   CLRA                        ; Done with ACIA status word, clear acc A
+.DONE           LDX     INDEX_PTR_IR_L      ; Return stack & index pointers to inital state
+                LDS     STACK_PTR_IR_L      
+                CLI                         ; Unset interupt flag/re-enable future IRQs
+                RTI                         ; Return from interupt      
+; Error handlers for IRQ handler
+.UCODE_OVERFLOW JMP     FATAL_ERR_LOOP      ; TODO: better handling of user code overflow
+
+; NMI (non-maskable) handler (Here, triggers a reset/unused)
+NMI_HANDLER     JMP     RESET
 
 ;------------------------------------------------------------------------
 ;  Interrupt and reset vectors
@@ -172,7 +206,7 @@ DELAY           LDX    DELAY_SEL_LOW       ; Set delay counter and count down
 ;------------------------------------------------------------------------
 
                 .NO     $FFF8,$FF
-                .DA     RESET      ; IRQ 
-                .DA     RESET      ; SWI 
-                .DA     RESET             ; NMI 
+                .DA     IRQ_HANDLER      ; IRQ 
+                .DA     IRQ_HANDLER      ; SWI 
+                .DA     NMI_HANDLER      ; NMI 
                 .DA     RESET            ; Reset

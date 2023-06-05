@@ -1,0 +1,24 @@
+MEMCPY      LDAB    MEMCPY_COUNT+1        ; Set B = L(count) +1
+            BEQ     .CHECK              ; If == 0, goto check
+.LOOP       LDX     MEMCPY_SRC          ; Index register = src addr
+            LDAA    0,X                 ; Load next byte
+            INX                         ; Set src addr += 1
+            STX     MEMCPY_SRC          ; Update src addr in RAM
+            LDX     MEMCPY_DEST         ; Load dest block address
+            STAA    0,X                 ; Store to dest
+            INX                         ; Seek next dest addr
+            STX     MEMCPY_DEST         ; Update dest addr in RAM
+            DECB                        ; Index (acc B) -= 1
+            BNE     .LOOP
+.CHECK      TST     MEMCPY_COUNT        ; If H(count) == 0
+            BEQ     .DONE               ; Then we are done
+            DEC     MEMCPY_COUNT        ; Otherwise decrement H(count)
+            ; Loop back and do 256*(H(count)+1) more copies (B=0)
+            BRA     .LOOP
+.DONE        RTS                         ; Return from subroutine
+
+; Delay subroutine
+DELAY           LDX    DELAY_SEL_LOW       ; Set delay counter and count down
+.LOOP           DEX                        ; to 0
+                BNE    .LOOP               ; Not 0 yet!
+                RTS

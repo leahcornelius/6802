@@ -1,0 +1,32 @@
+SET_PORT_MODE  .MA      A_MODE,B_MODE
+                LDAA    #%0000.0100
+                STAA    PIA_CON_A
+                STAA    PIA_CON_B
+                LDAA    ]1
+                STAA    PIA_A
+                LDAB    ]2
+                STAB    PIA_B
+                CLRA
+                STAA    PIA_CON_A
+                STAA    PIA_CON_B
+                LDAA    ]1
+                STAA    PIA_A
+                STAB    PIA_B
+                LDAA    #%0000.0100     ; Select data registers again
+                STAA    PIA_CON_A
+                STAA    PIA_CON_B
+               .EM
+
+DISABLE_TX_IRQ  .MA
+                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                STAB    UART_CONTROL        ; Store to ACIA's register
+                .EM
+ENABLE_TX_IRQ  .MA
+                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                ORAB    #UART_TX_IRQ_BIT    ; and TX interupts
+                STAB    UART_CONTROL        ; Store to ACIA's register
+                .EM

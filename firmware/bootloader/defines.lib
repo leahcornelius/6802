@@ -1,0 +1,66 @@
+;------------------------------------------------------------------------
+;  Address lables
+;------------------------------------------------------------------------
+; --- Internal/zero page allocated address & locations
+STACK_PTR_IR_L  .EQ     $00             ; Byte 0 & 1 of internal RAM are used to backup stack pointer during interupts
+INDEX_PTR_IR_L  .EQ     $02             ; and 2 & 3, the index pointer (during IRQ)
+STACK_PTR_GB_L  .EQ     $04             ; 4 & 5 general purpose stack pointer backup
+INDEX_PTR_GB_L  .EQ     $06             ; 6 & 7 general purpose index pointer backup
+MESSAGE_INDEX   .EQ     $08             ; 8 & 9 used to point to next char of ROM message
+IPTR_DELAY_L    .EQ     $0A           ; Used to back up X during delay subroutine
+DELAY_SEL_LOW   .EQ     $0C           ; Number of clock cycles for delay sr (low byte, high byte = +1)
+USER_CODE_HEADL .EQ     $0E           ; point to the last user_code entry (0xE & 0xF) 
+PORT_A_DATA     .EQ     $10           ; Buffers the data to be sent to & that is read from PIA port A
+PORT_B_DATA     .EQ     $11           ;                                                        &    B
+
+TX_BUFFER_TAIL  .EQ     $12           ; 12 & 13 point to next free location in TX buffer - write/input
+TX_BUFFER_HEAD  .EQ     $14           ; 14 & 15 point to the next byte to be sent over UART - read/output
+                                      ; if TAIL==HEAD then there are no pending bytes
+RX_BUFFER_TAIL  .EQ     $16
+RX_BUFFER_HEAD  .EQ     $18
+
+MEMCPY_COUNT    .EQ     $1A             ; Number of bytes to copy (memcpy subroutine)
+MEMCPY_SRC      .EQ     $1C             ; Address of source block (memcpy subroutine)
+MEMCPY_DEST     .EQ     $1E             ; Address of destination block (memcpy subroutine)
+
+RX_COUNTER      .EQ     $20             ; Counts number of recieved bytes 
+BOOT_MSG_IDX    .EQ     $22
+TX_BUFFER_START .EQ     $3FFF                 ; 256 bytes of UART TX buffer (start)
+TX_BUFFER_END   .EQ     $3EFF                 ;       (end)
+RX_BUFFER_START .EQ     $3EFE
+RX_BUFFER_END   .EQ     $3E9A
+
+; --- PIA registers (start at 0x80)
+PIA_A           .EQ     $8000           ; Pia data register A 
+PIA_B           .EQ     $8001           ; Pia data register B 
+PIA_CON_A       .EQ     $8002           ; Pia control register A
+PIA_CON_B       .EQ     $8003           ; Pia control register B
+
+; --- 6850 ACIA (UART) registers
+UART_CONTROL    .EQ     $8004        ; R: Status register,  W: Control register
+UART_DATA       .EQ     $8005        ; R: RX data register, W: TX data register
+
+USER_CODE_START .EQ     $7FFF
+USER_CODE_END   .EQ     $4000
+;------------------------------------------------------------------------
+; --- Labels used as constants (not addresses!) ---
+;------------------------------------------------------------------------
+
+DELAY_BASE      .EQ     12500         ; ~100ms of clock cycles 
+
+; UART controll register bits
+UART_BAUD_X16   .EQ     %0000.0001    ; x16 divisor 
+UART_RESET_BITS .EQ     %0000.0011    ; Resets the UART chip
+UART_MODE_BITS  .EQ     %0001.0100    ; 8n1 (data/stop bits, parity) = 5
+UART_TX_IRQ_BIT .EQ     %0010.0000    ; (En/Dis)able tx empty/ready interupts
+UART_RX_IRQ_BIT .EQ     %1000.0000    ; (En/Dis)able rx buffer full interupts
+; UART status register bits
+UART_RX_STATUS  .EQ     %0000.0001    ; 0=no data, 1=data to be read
+UART_TX_STATUS  .EQ     %0000.0010    ; 0=tx busy, 1=ready/can tx
+UART_FRAME_ERR  .EQ     %0001.0000    ; RX frame error (1=error)
+UART_OVER_ERR   .EQ     %0010.0000    ; RX overrun err (1=error)
+UART_PARITY_ERR .EQ     %0100.0000    ; RX parity error (1=error)
+UART_IRQ_STAUS  .EQ     %1000.0000    ; Interupt flag
+
+; PIA bits
+PIA_CX0_FLAG    .EQ     %1000.0000

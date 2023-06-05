@@ -68,23 +68,10 @@
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "6802 v1.kicad_prl",
+    "filename": "6802 v2.kicad_prl",
     "version": 3
   },
   "project": {
-    "files": [
-      {
-        "name": "6802 v1.kicad_sch",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": 2437,
-          "pos_y": 0,
-          "size_x": 960,
-          "size_y": 1080
-        }
-      }
-    ]
+    "files": []
   }
 }

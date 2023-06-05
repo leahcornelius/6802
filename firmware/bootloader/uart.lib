@@ -1,0 +1,45 @@
+
+
+;------------------------------------------------------------------------
+; Interupt handlers
+;------------------------------------------------------------------------
+
+; IRQ/ maskable handler
+IRQ_HANDLER     SEI                         ; Disable futher IRQ while processing this one
+                STS     STACK_PTR_IR_L      ; Backup stack pointer
+                LDAA    UART_CONTROL        ; Read ACIA status register
+                BITA    #UART_RX_STATUS     ; Check if there is a byte pending reading from ACIA
+                BEQ     .UART_TX_TEST       ; If not skip to .UART_TX_TEST 
+                LDX     RX_BUFFER_TAIL      ; Load ptr of next unwritten rx buffer byte into X       
+                LDAB    UART_DATA           ; Read byte from ACIA into acc B
+                STAB    0,X                 ; Append byte to buffer
+                DEX                         ; Seek next buffer byte
+                CPX     #RX_BUFFER_END      ; Check if we have reached end of rx buffer
+                BNE     .STORE_RX_PTR
+                LDX     #RX_BUFFER_START    ; Wrap to start
+.STORE_RX_PTR   STX     RX_BUFFER_TAIL
+
+.UART_TX_TEST   BITA    #UART_TX_STATUS     ; Check if ACIA indicates TX ready
+                BEQ     .UART_TST_END       ; If not, then skip to .UART_TST_END
+                LDX     TX_BUFFER_HEAD      ; Load ptr of next byte awaiting TX in UART TX buffer
+                CPX     TX_BUFFER_TAIL      ; Check if there is no unsent bytes in buffer (tail==head)
+                BEQ     .DISABLE_TX_IRQ     ; If so (no unsent bytes), skip to .DISABLE_TX_IRQ
+                LDAB    0,X                 ; Otherwise, load char into acc B 
+                STAB    UART_DATA           ; And send to ACIA TX register
+                DEX                         ; Seek next buffer location
+                CPX     #TX_BUFFER_END      ; Check if we have reached end of allocated memory
+                BNE     .STORE_TX_PTR       ; If not, skip to .STORE_TX_PTR
+                LDX     #TX_BUFFER_START    ; Wrap to start of allocated memory (tx buffer is circular)
+.STORE_TX_PTR   STX     TX_BUFFER_HEAD      ; Save X (tx buff head ptr) to RAM
+                BRA     .UART_TST_END       ; Skip disabling TX interupts if we just sent a char
+.DISABLE_TX_IRQ >DISABLE_TX_IRQ             ; Disable TX ready interupts from ACIA if no chars pending TX
+
+.UART_TST_END   CLRA                        ; Done with ACIA status word, clear acc A
+.DONE           LDS     STACK_PTR_IR_L      ; Return stack  pointer to inital state   
+                CLI                         ; Unset interupt flag/re-enable future IRQs
+                RTI                         ; Return from interupt      
+
+
+
+; NMI (non-maskable) handler (Here, triggers a reset/unused)
+NMI_HANDLER     JMP     RESET
