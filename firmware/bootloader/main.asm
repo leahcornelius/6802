@@ -6,15 +6,13 @@
             .IN    macros.lib
             .IN    uart.lib
 
-BOOT_MSG_STR    .DB     "UART echo test v1",$0A
+BOOT_MSG_STR    .DB     $0A,"> "
 BOOT_MSG_END    .DA     $00                     ; End string
 
 RESET           LDS     #$3FF                        ; Reset stack pointer
                 LDX     #DELAY_BASE                 ; Set the delay to default at 100ms 
                 STX     DELAY_SEL_LOW  
                 ; Reset pointers
-                LDX     #USER_CODE_START            ; User code last entry/head pointer
-                STX     USER_CODE_HEADL             
                 LDX     #TX_BUFFER_START            ; UART TX buffer I/O pointers
                 STX     TX_BUFFER_TAIL
                 STX     TX_BUFFER_HEAD  
@@ -27,15 +25,18 @@ RESET           LDS     #$3FF                        ; Reset stack pointer
                 STAA    PORT_B_DATA
                 STAA    PIA_A
                 STAA    PIA_B
-
-                LDAB    #UART_RESET_BITS    ; Reset the ACIA
-                STAB    UART_CONTROL        
+                LDAA    #%0000.0001         ; Rx enabled
+                STAA    UART_OPERATION
+                
+                LDAA    #UART_RESET_BITS    ; Reset the ACIA
+                STAA    UART_CONTROL        
                 ; Configure ACIA
-                LDAB    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
-                ORAB    #UART_MODE_BITS     ; Set mode bits (8n1)
-                ORAB    #UART_RX_IRQ_BIT    ; Enable RX interupts
-                STAB    UART_CONTROL        ; Store to ACIA's register
-                CLI                                 ; Enable interupts
+                LDAA    #UART_BAUD_X16      ; Set ACIA clk divisor (x16)
+                ORAA    #UART_MODE_BITS     ; Set mode bits (8n1)
+                ORAA    #UART_RX_IRQ_BIT    ; Enable RX interupts
+                STAA    UART_CONTROL        ; Store to ACIA's register
+                CLI                         ; Enable interupts
+
                 BSR     TX_BOOT_MSG         
                 >ENABLE_TX_IRQ
                 JMP     MAIN                        ; Begin MAIN subroutine
@@ -50,7 +51,7 @@ MAIN            LDX     RX_BUFFER_HEAD      ; Load rx buffer ptr into index regi
                 LDX     TX_BUFFER_TAIL      ; Load TX buffer ptr
                 STAA    0,X                 ; Append byte to TX buffer
                 DEX                         ; Seek next addr
-                CPX     #TX_BUFFER_END      ; Check if we ahve reached the end of buffer
+                CPX     #TX_BUFFER_END      ; Check if we have reached the end of buffer
                 BNE     .TX_NO_WRAP         ; If not skip
                 LDX     #TX_BUFFER_START    ; Otherwise wrap to start of buffer
 .TX_NO_WRAP     STX     TX_BUFFER_TAIL      ; Update tx buffer ptr in RAM
@@ -61,7 +62,7 @@ MAIN            LDX     RX_BUFFER_HEAD      ; Load rx buffer ptr into index regi
                 BNE     .RX_NO_WRAP         ; If not, skip...
                 LDX     #RX_BUFFER_START    ; Wrap to start of buffer
 .RX_NO_WRAP     STX     RX_BUFFER_HEAD      ; Update ptr in RAM
-                CPX     #RX_BUFFER_TAIL     ; Check if there are more bytes
+                CPX     RX_BUFFER_TAIL     ; Check if there are more bytes
                 BNE     .RX_LOOP            ; There are, continue processing them
                 >ENABLE_TX_IRQ              ; Enable TX IRQ (for echo chars)
 .SKIP_RX        INC     PIA_A

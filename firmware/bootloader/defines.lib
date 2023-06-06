@@ -3,13 +3,12 @@
 ;------------------------------------------------------------------------
 ; --- Internal/zero page allocated address & locations
 STACK_PTR_IR_L  .EQ     $00             ; Byte 0 & 1 of internal RAM are used to backup stack pointer during interupts
-INDEX_PTR_IR_L  .EQ     $02             ; and 2 & 3, the index pointer (during IRQ)
-STACK_PTR_GB_L  .EQ     $04             ; 4 & 5 general purpose stack pointer backup
-INDEX_PTR_GB_L  .EQ     $06             ; 6 & 7 general purpose index pointer backup
-MESSAGE_INDEX   .EQ     $08             ; 8 & 9 used to point to next char of ROM message
-IPTR_DELAY_L    .EQ     $0A           ; Used to back up X during delay subroutine
-DELAY_SEL_LOW   .EQ     $0C           ; Number of clock cycles for delay sr (low byte, high byte = +1)
-USER_CODE_HEADL .EQ     $0E           ; point to the last user_code entry (0xE & 0xF) 
+STACK_PTR_IRB_L .EQ     $02             ; and 2 & 3, alternative stack pointer (during IRQ)
+STACK_PTR_GPA_L .EQ    $04             ; 4 & 5 general purpose stack pointer backup
+STACK_PTR_GPB_L .EQ    $06             ; 6 & 7 alternative stack ptr (general purpose) backup
+BOOT_MSG_IDX    .EQ      $08             ; 8 & 9 used to point to next char of boot message
+DELAY_SEL_LOW   .EQ     $0A           ; Number of clock cycles for delay sr (low byte, high byte = +1)
+UART_OPERATION  .EQ     $0C           ; Bit mask that indicates the current uart configuration
 PORT_A_DATA     .EQ     $10           ; Buffers the data to be sent to & that is read from PIA port A
 PORT_B_DATA     .EQ     $11           ;                                                        &    B
 
@@ -24,7 +23,7 @@ MEMCPY_SRC      .EQ     $1C             ; Address of source block (memcpy subrou
 MEMCPY_DEST     .EQ     $1E             ; Address of destination block (memcpy subroutine)
 
 RX_COUNTER      .EQ     $20             ; Counts number of recieved bytes 
-BOOT_MSG_IDX    .EQ     $22
+
 TX_BUFFER_START .EQ     $3FFF                 ; 256 bytes of UART TX buffer (start)
 TX_BUFFER_END   .EQ     $3EFF                 ;       (end)
 RX_BUFFER_START .EQ     $3EFE
