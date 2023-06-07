@@ -1,6 +1,6 @@
             .CR    6800                ; Select cross overlay (Motorola 6802)
             .OR    $E000               ; The program will start at address $8000 
-            .TF    bootloader.hex, BIN ; Set raw binary output
+            .TF    cbug.hex, BIN ; Set raw binary output
             .IN    defines.lib
             .IN    std.lib
             .IN    macros.lib

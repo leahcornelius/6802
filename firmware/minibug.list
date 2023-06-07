@@ -1,0 +1,668 @@
+0001                         * MINI-BUG
+0002                         * COPYWRITE 1973, MOTOROLA INC
+0003                         * REV 004 (USED WITH MIKBUG)
+0004                         
+0005 8004                    ACIACS EQU    $8004   ACIA CONTROL/STATUS
+0006 8005                    ACIADA EQU    ACIACS+1
+0007 0003                    ARESET EQU    %00000011     Written to ACIA for reset
+0008 0015                    ACONF  EQU    %00010101     No Rx/Tx IRQ, 8n1 UART @ 31250 baud (16x clk divisor + external 2x)
+0009                         *      
+0010 0000                           ORG    $0000
+0011 0000 43 4f 52 4e 70 75         FCC    "CORNputer CMON online"     ; Remove if not creating disk image for simulator
+     74 65 72 20 43 4d
+     4f 4e 20 6f 6e 6c
+     69 6e 65
+0012                         
+0013 1000                           ORG    $1000
+0014 1000                           RMB    4096
+0015 2000                    STACK  RMB    1        STACK POINTER
+0016                         * REGISTERS FOR GO
+0017 2001                           RMB    1        CONDITION CODES
+0018 2002                           RMB    1        B ACCUMULATOR
+0019 2003                           RMB    1        A
+0020 2004                           RMB    1        X-HIGH
+0021 2005                           RMB    1        X-LOW
+0022 2006                           RMB    1        P-HIGH
+0023 2007                           RMB    1        P-LOW
+0024 2008                    SP     RMB    1        S-HIGH
+0025 2009                           RMB    1        S-LOW
+0026                         * END REGISTERS FOR GO
+0027 200a                    CKSM   RMB    1        CHECKSUM
+0028 200b                    BYTECT RMB    1        BYTE COUNT
+0029 200c                    XHI    RMB    1        XREG HIGH
+0030 200d                    XLOW   RMB    1        XREG LOW
+0031                         * Pointers used for printing a string
+0032 200e                    STRS   RMB    2        Pointer to start of string (16 bit)
+0033 2010                    STRE   RMB    2        Pointer to end of string (16 bit)
+0034 2012                    IOV    RMB    2        IO INTERRUPT POINTER
+0035 2014                    BEGA   RMB    2        BEGINING ADDR PRINT/PUNCH
+0036 2016                    ENDA   RMB    2        ENDING ADDR PRINT/PUNCH
+0037 2018                    NIO    RMB    2        NMI INTERRUPT POINTER
+0038 201a                    TEMP   RMB    1        CHAR COUNT (INADDR)
+0039 201b                    TW     RMB    2        TEMP/
+0040 201d                    MCONT  RMB    1        TEMP
+0041 201e                    XTEMP  RMB    2        X-REG TEMP STORAGE
+0042                         
+0043                         * Begin EEPROM/code space
+0044 e000                           ORG    $E000
+0045                         * INPUT ONE CHAR INTO A-REGISTER
+0046 e000 b6 80 04           INCH   LDAA  ACIACS
+0047 e003 47                        ASRA
+0048 e004 24 fa                     BCC    INCH     RECEIVE NOT READY
+0049 e006 b6 80 05                  LDAA  ACIADA   INPUT CHARACTER
+0050 e009 84 7f                     ANDA  #$7F     RESET PARITY BIT
+0051 e00b 81 7f                     CMPA  #$7F
+0052 e00d 27 f1                     BEQ    INCH     RUBOUT IGNORE
+0053 e00f 7e e0 a9                  JMP    OUTCH    ECHO CHAR
+0054                         
+0055                         * INPUT HEX CHAR
+0056 e012 8d ec              INHEX  BSR    INCH
+0057 e014 81 30                     CMPA  #$30
+0058 e016 2b 4d                     BMI    C1       NOT HEX
+0059 e018 81 39                     CMPA  #$39
+0060 e01a 2f 0a                     BLE    IN1HG
+0061 e01c 81 41                     CMPA  #$41
+0062 e01e 2b 45                     BMI    C1       NOT HEX
+0063 e020 81 46                     CMPA  #$46
+0064 e022 2e 41                     BGT    C1       NOT HEX
+0065 e024 80 07                     SUBA  #7
+0066 e026 39                 IN1HG  RTS
+0067                         
+0068 e027 86 11              LOAD   LDAA  #@21
+0069 e029 8d 7e                     BSR    OUTCH
+0070                         
+0071 e02b 8d d3              LOAD3  BSR    INCH
+0072 e02d 81 53                     CMPA  #'S
+0073 e02f 26 fa                     BNE    LOAD3    1ST CHAR NOT (S)
+0074 e031 8d cd                     BSR    INCH
+0075 e033 81 39                     CMPA  #'9
+0076 e035 27 25                     BEQ    LOAD21
+0077 e037 81 31                     CMPA  #'1
+0078 e039 26 f0                     BNE    LOAD3    2ND CHAR NOT (1)
+0079 e03b 7f 20 0a                  CLR    CKSM     ZERO CHECKSUM
+0080 e03e 8d 36                     BSR    BYTE     READ BYTE
+0081 e040 80 02                     SUBA  #2
+0082 e042 b7 20 0b                  STAA  BYTECT   BYTE COUNT
+0083                         * BUILD ADDRESS
+0084 e045 8d 21                     BSR    BADDR
+0085                         * STORE DATA
+0086 e047 8d 2d              LOAD11 BSR    BYTE
+0087 e049 7a 20 0b                  DEC    BYTECT
+0088 e04c 27 05                     BEQ    LOAD15   ZERO BYTE COUNT
+0089 e04e a7 00                     STAA  0,X        STORE DATA
+0090 e050 08                        INX
+0091 e051 20 f4                     BRA    LOAD11
+0092                         
+0093 e053 7c 20 0a           LOAD15 INC    CKSM
+0094 e056 27 d3                     BEQ    LOAD3
+0095 e058 86 3f              LOAD19 LDAA  #'?      PRINT QUESTION MARK
+0096 e05a 8d 4d                     BSR    OUTCH
+0097 e05c 86 b1              LOAD21 LDAA  #$B1     TURN READER OFF
+0098 e05e b7 80 04                  STAA  ACIACS
+0099 e061 86 13                     LDAA  #@23
+0100 e063 8d 44                     BSR    OUTCH
+0101 e065 7e e0 d4           C1     JMP    CONTRL
+0102                         
+0103                         * BUILD ADDRESS
+0104 e068 8d 0c              BADDR  BSR    BYTE     READ 2 FRAMES
+0105 e06a b7 20 0c                  STAA  XHI
+0106 e06d 8d 07                     BSR    BYTE
+0107 e06f b7 20 0d                  STAA  XLOW
+0108 e072 fe 20 0c                  LDX    XHI      (X) ADDRESS WE BUILT
+0109 e075 39                        RTS
+0110                         
+0111                         * INPUT BYTE (TWO FRAMES)
+0112 e076 8d 9a              BYTE   BSR    INHEX    GET HEX CHAR
+0113 e078 48                        ASLA
+0114 e079 48                        ASLA
+0115 e07a 48                        ASLA
+0116 e07b 48                        ASLA
+0117 e07c 16                        TAB
+0118 e07d 8d 93                     BSR    INHEX
+0119 e07f 84 0f                     ANDA  #$0F     MASK TO 4 BITS
+0120 e081 1b                        ABA
+0121 e082 16                        TAB
+0122 e083 fb 20 0a                  ADDB  CKSM
+0123 e086 f7 20 0a                  STAB  CKSM
+0124 e089 39                        RTS
+0125                         
+0126                         * CHANGE MEMORY (M AAAA DD NN)
+0127 e08a 8d dc              CHANGE BSR    BADDR    BUILD ADDRESS
+0128 e08c 8d 34                     BSR    OUTS     PRINT SPACE
+0129 e08e 8d 30                     BSR    OUT2HS
+0130 e090 8d e4                     BSR    BYTE
+0131 e092 09                        DEX
+0132 e093 a7 00                     STAA 0,X
+0133 e095 a1 00                     CMPA 0,X
+0134 e097 26 bf                     BNE    LOAD19   MEMORY DID NOT CHANGE
+0135 e099 20 39                     BRA    CONTRL
+0136                         
+0137 e09b 44                 OUTHL  LSRA           OUT HEX LEFT BCD DIGIT
+0138 e09c 44                        LSRA
+0139 e09d 44                        LSRA
+0140 e09e 44                        LSRA
+0141                         
+0142 e09f 84 0f              OUTHR  ANDA  #$F      OUT HEX RIGHT BCD DIGIT
+0143 e0a1 8b 30                     ADDA  #$30
+0144 e0a3 81 39                     CMPA  #$39
+0145 e0a5 23 02                     BLS    OUTCH
+0146 e0a7 8b 07                     ADDA  #$7
+0147                         
+0148                         * OUTPUT ONE CHAR
+0149 e0a9 37                 OUTCH  PSHB           SAVE B-REG
+0150 e0aa f6 80 04           OUTC1  LDAB  ACIACS
+0151 e0ad 57                        ASRB
+0152 e0ae 57                        ASRB
+0153 e0af 24 f9                     BCC    OUTC1    XMIT NOT READY
+0154 e0b1 b7 80 05                  STAA  ACIADA   OUTPUT CHARACTER
+0155 e0b4 33                        PULB
+0156 e0b5 39                        RTS
+0157                         
+0158 e0b6 a6 00              OUT2H  LDAA  0,X      OUTPUT 2 HEX CHAR
+0159 e0b8 8d e1                     BSR    OUTHL    OUT LEFT HEX CHAR
+0160 e0ba a6 00                     LDAA  0,X
+0161 e0bc 8d e1                     BSR    OUTHR    OUT RIGHT HEX VHAR
+0162 e0be 08                        INX
+0163 e0bf 39                        RTS
+0164                         
+0165 e0c0 8d f4              OUT2HS BSR    OUT2H    OUTPUT 2 HEX CHAR + SPACE
+0166 e0c2 86 20              OUTS   LDAA  #$20     SPACE
+0167 e0c4 20 e3                     BRA    OUTCH    (BSR & RTS)
+0168                         
+0169                              
+0170                         * PRINT CONTENTS OF STACK
+0171 e0c6 30                 PRINT  TSX
+0172 e0c7 ff 20 08                  STX    SP       SAVE STACK POINTER
+0173 e0ca c6 09                     LDAB  #9
+0174 e0cc 8d f2              PRINT2 BSR    OUT2HS   OUT 2 HEX & SPCACE
+0175 e0ce 5a                        DECB
+0176 e0cf 26 fb                     BNE    PRINT2
+0177 e0d1 7e e0 d4                  JMP    CONTRL
+0178                         
+0179 e0d4 8e 20 00           CONTRL LDS    #STACK   SET STACK POINTER
+0180 e0d7 86 0d                     LDAA   #$0d     CR
+0181 e0d9 8d ce                     BSR    OUTCH
+0182 e0db 86 0a                     LDAA   #$0a     LF
+0183 e0dd 8d ca                     BSR    OUTCH    
+0184 e0df 86 3e                     LDAA   #'>       > char
+0185 e0e1 8d c6                     BSR    OUTCH         
+0186 e0e3 8d dd                     BSR    OUTS
+0187                         
+0188 e0e5 bd e0 00                  JSR    INCH     READ CHARACTER
+0189 e0e8 16                        TAB
+0190 e0e9 8d d7                     BSR    OUTS     PRINT SPACE
+0191 e0eb c1 4c                     CMPB  #'L
+0192 e0ed 26 03                     BNE    *+5
+0193 e0ef 7e e0 27                  JMP    LOAD
+0194 e0f2 c1 4d                     CMPB  #'M
+0195 e0f4 27 94                     BEQ    CHANGE
+0196 e0f6 c1 50                     CMPB  #'P
+0197 e0f8 27 cc                     BEQ    PRINT    STACK
+0198 e0fa c1 41                     CMPB  #'A
+0199 e0fc 27 19                     BEQ    OUTMBS
+0200 e0fe c1 47                     CMPB  #'G
+0201 e100 26 d2                     BNE    CONTRL
+0202 e102 3b                        RTI             GO
+0203                         
+0204 e103 fe 20 0e           OUTSTR LDX    STRS
+0205 e106 a6 00                     LDAA   0,X
+0206 e108 08                        INX
+0207 e109 bc 20 10                  CPX    STRE
+0208 e10c 27 08                     BEQ    OSDONE
+0209 e10e ff 20 0e                  STX    STRS
+0210 e111 bd e0 a9                  JSR    OUTCH
+0211 e114 20 ed                     BRA    OUTSTR
+0212 e116 39                 OSDONE RTS
+0213                         
+0214 e117 ce e1 c8           OUTMBS LDX    #ASCII_FRACTAL_ST
+0215 e11a ff 20 0e                  STX    STRS
+0216 e11d ce e5 f8                  LDX    #ASCII_FRACTAL_EN
+0217 e120 ff 20 10                  STX    STRE
+0218 e123 8d de                     BSR    OUTSTR
+0219 e125 7e e0 d4                  JMP    CONTRL
+0220                         
+0221                         * ENTER POWER ON SEQUENCE
+0222 e128                    START  EQU    *
+0223 e128 8e 20 00                  LDS    #STACK   SET STACK POINTER
+0224 e12b 86 03                     LDAA  #ARESET     Reset ACIA
+0225 e12d b7 80 04                  STAA  ACIACS
+0226 e130 01                        NOP
+0227 e131 86 15                     LDAA  #ACONF      Set up ACIA
+0228 e133 b7 80 04                  STAA  ACIACS
+0229                         * Print bootmessage
+0230 e136 ce e5 f8                  LDX    #BOOT_STR_START
+0231 e139 ff 20 0e                  STX    STRS
+0232 e13c ce e6 23                  LDX    #BOOT_STR_END
+0233 e13f ff 20 10                  STX    STRE
+0234 e142 8d bf                     BSR    OUTSTR
+0235 e144 7e e0 d4                  JMP    CONTRL
+0236                         
+0237                         * PRINT DATA POINTED AT BY X-REG
+0238 e147 bd e0 a9           PDATA2 JSR    OUTCH
+0239 e14a 08                        INX
+0240 e14b a6 00              PDATA1 LDAA   0,X
+0241 e14d 81 04                     CMPA   #4
+0242 e14f 26 f6                     BNE    PDATA2
+0243 e151 39                        RTS             STOP ON EOT
+0244                         
+0245 e152                    PUNCH  EQU    *
+0246                         
+0247 e152 86 12                     LDAA   #$12     TURN TTY PUNCH ON
+0248 e154 bd e0 a9                  JSR    OUTCH    OUT CHAR
+0249                         
+0250 e157 fe 20 14                  LDX    BEGA
+0251 e15a ff 20 1b                  STX    TW       TEMP BEGINING ADDRESS
+0252 e15d b6 20 17           PUN11  LDAA   ENDA+1
+0253 e160 b0 20 1c                  SUBA   TW+1
+0254 e163 f6 20 16                  LDAB   ENDA
+0255 e166 f2 20 1b                  SBCB   TW
+0256 e169 26 04                     BNE    PUN22
+0257 e16b 81 10                     CMPA   #16
+0258 e16d 25 02                     BCS    PUN23
+0259 e16f 86 0f              PUN22  LDAA   #15
+0260 e171 8b 04              PUN23  ADDA   #4
+0261 e173 b7 20 1d                  STAA   MCONT    FRAME COUNT THIS RECORD
+0262 e176 80 03                     SUBA   #3
+0263 e178 b7 20 1a                  STAA   TEMP     BYTE COUNT THIS RECORD
+0264                         *     PUNCH C/R,L/F,NULL,S,1
+0265 e17b ce e1 bf                  LDX    #MTAPE1
+0266 e17e bd e1 4b                  JSR    PDATA1
+0267 e181 5f                        CLRB            ZERO CHECKSUM
+0268                         *     PUNCH FRAME COUNT
+0269 e182 ce 20 1d                  LDX    #MCONT
+0270 e185 8d 26                     BSR    PUNT2    PUNCH 2 HEX CHAR
+0271                         *     PUNCH ADDRESS
+0272 e187 ce 20 1b                  LDX    #TW
+0273 e18a 8d 21                     BSR    PUNT2
+0274 e18c 8d 1f                     BSR    PUNT2
+0275                         *     PUNCH DATA
+0276 e18e fe 20 1b                  LDX    TW
+0277 e191 8d 1a              PUN32  BSR    PUNT2    PUNCH ONE BYTE (2 FRAMES)
+0278 e193 7a 20 1a                  DEC    TEMP     DEC BYTE COUNT
+0279 e196 26 f9                     BNE    PUN32
+0280 e198 ff 20 1b                  STX    TW
+0281 e19b 53                        COMB 
+0282 e19c 37                        PSHB 
+0283 e19d 30                        TSX
+0284 e19e 8d 0d                     BSR    PUNT2    PUNCH CHECKSUM
+0285 e1a0 33                        PULB 
+0286 e1a1 fe 20 1b                  LDX    TW
+0287 e1a4 09                        DEX
+0288 e1a5 bc 20 16                  CPX    ENDA
+0289 e1a8 26 b3                     BNE    PUN11
+0290 e1aa 7e e0 d4                  JMP    CONTRL       
+0291                         
+0292                         *     PUNCH 2 HEX CHAR, UPDATE CHECKSUM
+0293 e1ad eb 00              PUNT2  ADDB   0,X      UPDATE CHECKSUM
+0294 e1af 7e e0 b6                  JMP    OUT2H    OUTPUT TWO HEX CHAR AND RTS
+0295                         
+0296 e1b2 13                 MCLOFF FCB    $13      READER OFF
+0297 e1b3 0d 0a 14 00 00 00  MCL    FCB    $D,$A,$14,0,0,0,'*,4   C/R,L/F,PUNCH
+     2a 04
+0298 e1bb 39                        RTS
+0299                         
+0300 e1bc 7e e0 d4           CATCH  JMP    CONTRL           Capture any stray PC so they dont try to execute the ASCII art :-)
+0301                         
+0302 e1bf 0d 0a 00 00 00 00  MTAPE1 FCB    $D,$A,0,0,0,0,'S,'1,4   PUNCH FORMAT
+     53 31 04
+0303                         
+0304                         ASCII_FRACTAL_ST
+0305 e1c8 20 20 20 20 20 20         FCC     "                                  "
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20
+0306 e1ea 0d 0a                     FCB    $0D,$0A  CRLF
+0307 e1ec 20 20 20 20 20 20         FCC     "                                  \\"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 5c 5c
+0308 e210 0d 0a                     FCB    $0D,$0A  CRLF
+0309 e212 20 20 20 20 20 20         FCC     "                                  `\,/"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 60 5c
+     2c 2f
+0310 e238 0d 0a                     FCB    $0D,$0A  CRLF
+0311 e23a 20 20 20 20 20 20         FCC     "                                  .-'-."
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 2e 2d
+     27 2d 2e
+0312 e261 0d 0a                     FCB    $0D,$0A  CRLF
+0313 e263 20 20 20 20 20 20         FCC     "                                 '     `"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 27 20 20
+     20 20 20 60
+0314 e28b 0d 0a                     FCB    $0D,$0A  CRLF
+0315 e28d 20 20 20 20 20 20         FCC     "                                 `.   .'"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 60 2e 20
+     20 20 2e 27
+0316 e2b5 0d 0a                     FCB    $0D,$0A  CRLF
+0317 e2b7 20 20 20 20 20 20         FCC     "                          `._  .-~     ~-.   _,'"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 60 2e 5f 20
+     20 2e 2d 7e 20 20
+     20 20 20 7e 2d 2e
+     20 20 20 5f 2c 27
+0318 e2e7 0d 0a                     FCB    $0D,$0A  CRLF
+0319 e2e9 20 20 20 20 20 20         FCC     "                           ( )'           '.( )"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 28 20 29
+     27 20 20 20 20 20
+     20 20 20 20 20 20
+     27 2e 28 20 29
+0320 e318 0d 0a                     FCB    $0D,$0A  CRLF
+0321 e31a 20 20 20 20 20 20         FCC     "             `._    _       /               .'"
+     20 20 20 20 20 20
+     20 60 2e 5f 20 20
+     20 20 5f 20 20 20
+     20 20 20 20 2f 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 2e 27
+0322 e348 0d 0a                     FCB    $0D,$0A  CRLF
+0323 e34a 20 20 20 20 20 20         FCC     "              ( )--' `-.  .'                 ;"
+     20 20 20 20 20 20
+     20 20 28 20 29 2d
+     2d 27 20 60 2d 2e
+     20 20 2e 27 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 3b
+0324 e378 0d 0a                     FCB    $0D,$0A  CRLF
+0325 e37a 20 20 20 20 20 20         FCC     "         .    .'        '.;                  ()"
+     20 20 20 2e 20 20
+     20 20 2e 27 20 20
+     20 20 20 20 20 20
+     27 2e 3b 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 28 29
+0326 e3a9 0d 0a                     FCB    $0D,$0A  CRLF
+0327 e3ab 20 20 20 20 20 20         FCC     "          `.-.` CORNELIUS '                 .'"
+     20 20 20 20 60 2e
+     2d 2e 60 20 43 4f
+     52 4e 45 4c 49 55
+     53 20 27 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 2e 27
+0328 e3d9 0d 0a                     FCB    $0D,$0A  CRLF
+0329 e3db 2d 2d 2d 2d 2a 2d         FCC     "----*-----;      T E C H N O L O G I E S   .'"
+     2d 2d 2d 2d 3b 20
+     20 20 20 20 20 54
+     20 45 20 43 20 48
+     20 4e 20 4f 20 4c
+     20 4f 20 47 20 49
+     20 45 20 53 20 20
+     20 2e 27
+0330 e408 0d 0a                     FCB    $0D,$0A  CRLF
+0331 e40a 20 20 20 20 20 20         FCC     "          .`-'.           ,                `."
+     20 20 20 20 2e 60
+     2d 27 2e 20 20 20
+     20 20 20 20 20 20
+     20 20 2c 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 60 2e
+0332 e437 0d 0a                     FCB    $0D,$0A  CRLF
+0333 e439 20 20 20 20 20 20         FCC     "         '    '.        .';                  ()"
+     20 20 20 27 20 20
+     20 20 27 2e 20 20
+     20 20 20 20 20 20
+     2e 27 3b 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 28 29
+0334 e468 0d 0a                     FCB    $0D,$0A  CRLF
+0335 e46a 20 20 20 20 20 20         FCC     "              (_)-   .-'  `.                 ;"
+     20 20 20 20 20 20
+     20 20 28 5f 29 2d
+     20 20 20 2e 2d 27
+     20 20 60 2e 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 3b
+0336 e498 0d 0a                     FCB    $0D,$0A  CRLF
+0337 e49a 20 20 20 20 20 20         FCC     "             ,'   `-'       \               `."
+     20 20 20 20 20 20
+     20 2c 27 20 20 20
+     60 2d 27 20 20 20
+     20 20 20 20 5c 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 60 2e
+0338 e4c8 0d 0a                     FCB    $0D,$0A  CRLF
+0339 e4ca 20 20 20 20 20 20         FCC     "                           (_).           .'(_)"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 28 5f 29
+     2e 20 20 20 20 20
+     20 20 20 20 20 20
+     2e 27 28 5f 29
+0340 e4f9 0d 0a                     FCB    $0D,$0A  CRLF
+0341 e4fb 20 20 20 20 20 20         FCC     "                          .'   '-._   _.-'    `."
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 2e 27 20 20
+     20 27 2d 2e 5f 20
+     20 20 5f 2e 2d 27
+     20 20 20 20 60 2e
+0342 e52b 0d 0a                     FCB    $0D,$0A  CRLF
+0343 e52d 20 20 20 20 20 20         FCC     "                                 .'   `."
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 2e 27 20
+     20 20 60 2e
+0344 e555 0d 0a                     FCB    $0D,$0A  CRLF
+0345 e557 20 20 20 20 20 20         FCC     "                                 '     ;"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 27 20 20
+     20 20 20 3b
+0346 e57f 0d 0a                     FCB    $0D,$0A  CRLF
+0347 e581 20 20 20 20 20 20         FCC     "                                  `-,-'"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 60 2d
+     2c 2d 27
+0348 e5a8 0d 0a                     FCB    $0D,$0A  CRLF
+0349 e5aa 20 20 20 20 20 20         FCC     "                                   /`\\"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 2f
+     60 5c 5c
+0350 e5d1 0d 0a                     FCB    $0D,$0A  CRLF
+0351 e5d3 20 20 20 20 20 20         FCC     "                                 /`"
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 20 20 20
+     20 20 20 2f 60
+0352 e5f6 0d 0a                     FCB    $0D,$0A  CRLF
+0353                         ASCII_FRACTAL_EN
+0354                         
+0355                         BOOT_STR_START
+0356 e5f8 2d 2d 20 43 6f 72         FCC    "-- Cornelius Technologies --"
+     6e 65 6c 69 75 73
+     20 54 65 63 68 6e
+     6f 6c 6f 67 69 65
+     73 20 2d 2d
+0357 e614 0d 0a                     FCB    $0D,$0A  CRLF
+0358 e616 43 4d 4f 4e 20 76         FCC    "CMON v1.0.1"
+     31 2e 30 2e 31
+0359 e621 0d 0a                     FCB    $0D,$0A  CRLF
+0360                         BOOT_STR_END
+0361                         
+0362                         * ASCII art in ROM
+0363                         * ROM vectors 
+0364 fff8                           ORG    $FFF8
+0365 fff8 e0 c6              SWIVEC FDB    PRINT         Software interupt (triggers stack print)
+0366 fffa e0 c6              IRQVEC FDB    PRINT         Maskable (IRQ) interupt (triggers IRQ subroutine)
+0367 fffc e1 28              NMIVEC FDB    START         Non-maskable (NMI) interupt (triggers reset/bootup)
+0368 fffe e1 28              RSTVEC FDB    START         Reset event (triggers bootup)
+0369                                END
+ACIACS     8004
+ACIADA     8005
+ACONF      0015
+ARESET     0003
+ASCII_FRACTAL_EN e5f8
+ASCII_FRACTAL_ST e1c8
+BADDR      e068
+BEGA       2014
+BOOT_STR_END e623
+BOOT_STR_START e5f8
+BYTE       e076
+BYTECT     200b
+C1         e065
+CATCH      e1bc
+CHANGE     e08a
+CKSM       200a
+CONTRL     e0d4
+ENDA       2016
+IN1HG      e026
+INCH       e000
+INHEX      e012
+IOV        2012
+IRQVEC     fffa
+LOAD       e027
+LOAD11     e047
+LOAD15     e053
+LOAD19     e058
+LOAD21     e05c
+LOAD3      e02b
+MCL        e1b3
+MCLOFF     e1b2
+MCONT      201d
+MTAPE1     e1bf
+NIO        2018
+NMIVEC     fffc
+OSDONE     e116
+OUT2H      e0b6
+OUT2HS     e0c0
+OUTC1      e0aa
+OUTCH      e0a9
+OUTHL      e09b
+OUTHR      e09f
+OUTMBS     e117
+OUTS       e0c2
+OUTSTR     e103
+PDATA1     e14b
+PDATA2     e147
+PRINT      e0c6
+PRINT2     e0cc
+PUN11      e15d
+PUN22      e16f
+PUN23      e171
+PUN32      e191
+PUNCH      e152
+PUNT2      e1ad
+RSTVEC     fffe
+SP         2008
+STACK      2000
+START      e128
+STRE       2010
+STRS       200e
+SWIVEC     fff8
+TEMP       201a
+TW         201b
+XHI        200c
+XLOW       200d
+XTEMP      201e
+ACIACS     8004 *0005 0006 0046 0098 0150 0225 0228 
+ACIADA     8005 *0006 0049 0154 
+ACONF      0015 *0008 0227 
+ARESET     0003 *0007 0224 
+ASCII_FRACTAL_EN e5f8 *0353 0216 
+ASCII_FRACTAL_ST e1c8 *0304 0214 
+BADDR      e068 *0104 0084 0127 
+BEGA       2014 *0035 0250 
+BOOT_STR_END e623 *0360 0232 
+BOOT_STR_START e5f8 *0355 0230 
+BYTE       e076 *0112 0080 0086 0104 0106 0130 
+BYTECT     200b *0028 0082 0087 
+C1         e065 *0101 0058 0062 0064 
+CATCH      e1bc *0300 
+CHANGE     e08a *0127 0195 
+CKSM       200a *0027 0079 0093 0122 0123 
+CONTRL     e0d4 *0179 0101 0135 0177 0201 0219 0235 0290 0300 
+ENDA       2016 *0036 0252 0254 0288 
+IN1HG      e026 *0066 0060 
+INCH       e000 *0046 0048 0052 0056 0071 0074 0188 
+INHEX      e012 *0056 0112 0118 
+IOV        2012 *0034 
+IRQVEC     fffa *0366 
+LOAD       e027 *0068 0193 
+LOAD11     e047 *0086 0091 
+LOAD15     e053 *0093 0088 
+LOAD19     e058 *0095 0134 
+LOAD21     e05c *0097 0076 
+LOAD3      e02b *0071 0073 0078 0094 
+MCL        e1b3 *0297 
+MCLOFF     e1b2 *0296 
+MCONT      201d *0040 0261 0269 
+MTAPE1     e1bf *0302 0265 
+NIO        2018 *0037 
+NMIVEC     fffc *0367 
+OSDONE     e116 *0212 0208 
+OUT2H      e0b6 *0158 0165 0294 
+OUT2HS     e0c0 *0165 0129 0174 
+OUTC1      e0aa *0150 0153 
+OUTCH      e0a9 *0149 0053 0069 0096 0100 0145 0167 0181 0183 0185 
+                      0210 0238 0248 
+OUTHL      e09b *0137 0159 
+OUTHR      e09f *0142 0161 
+OUTMBS     e117 *0214 0199 
+OUTS       e0c2 *0166 0128 0186 0190 
+OUTSTR     e103 *0204 0211 0218 0234 
+PDATA1     e14b *0240 0266 
+PDATA2     e147 *0238 0242 
+PRINT      e0c6 *0171 0197 0365 0366 
+PRINT2     e0cc *0174 0176 
+PUN11      e15d *0252 0289 
+PUN22      e16f *0259 0256 
+PUN23      e171 *0260 0258 
+PUN32      e191 *0277 0279 
+PUNCH      e152 *0245 
+PUNT2      e1ad *0293 0270 0273 0274 0277 0284 
+RSTVEC     fffe *0368 
+SP         2008 *0024 0172 
+STACK      2000 *0015 0179 0223 
+START      e128 *0222 0367 0368 
+STRE       2010 *0033 0207 0217 0233 
+STRS       200e *0032 0204 0209 0215 0231 
+SWIVEC     fff8 *0365 
+TEMP       201a *0038 0263 0278 
+TW         201b *0039 0251 0253 0255 0272 0276 0280 0286 
+XHI        200c *0029 0105 0108 
+XLOW       200d *0030 0107 
+XTEMP      201e *0041 
