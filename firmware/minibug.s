@@ -3,12 +3,17 @@
 * REV 004 (USED WITH MIKBUG)
 
 ACIACS EQU    $8004   ACIA CONTROL/STATUS
-ACIADA EQU    ACIACS+1
+ACIADA EQU    $8005
 ARESET EQU    %00000011     Written to ACIA for reset
 ACONF  EQU    %00010101     No Rx/Tx IRQ, 8n1 UART @ 31250 baud (16x clk divisor + external 2x)
+
+PIACA  EQU    $8000
+PIACB  EQU    $8001
+PIADA  EQU    $8002
+PIADB  EQU    $8003
 *      
-       ORG    $0000
-       FCC    "CORNputer CMON online"     ; Remove if not creating disk image for simulator
+*       ORG    $0000
+*       FCC    "CORNputer CMON online"     ; Remove if not creating disk image for simulator
 
        ORG    $1000
        RMB    4096
@@ -28,9 +33,7 @@ CKSM   RMB    1        CHECKSUM
 BYTECT RMB    1        BYTE COUNT
 XHI    RMB    1        XREG HIGH
 XLOW   RMB    1        XREG LOW
-* Pointers used for printing a string
-STRS   RMB    2        Pointer to start of string (16 bit)
-STRE   RMB    2        Pointer to end of string (16 bit)
+
 IOV    RMB    2        IO INTERRUPT POINTER
 BEGA   RMB    2        BEGINING ADDR PRINT/PUNCH
 ENDA   RMB    2        ENDING ADDR PRINT/PUNCH
@@ -38,6 +41,7 @@ NIO    RMB    2        NMI INTERRUPT POINTER
 TEMP   RMB    1        CHAR COUNT (INADDR)
 TW     RMB    2        TEMP/
 MCONT  RMB    1        TEMP
+DROW   RMB    1        TEMP
 XTEMP  RMB    2        X-REG TEMP STORAGE
 
 * Begin EEPROM/code space
@@ -166,6 +170,17 @@ OUT2HS BSR    OUT2H    OUTPUT 2 HEX CHAR + SPACE
 OUTS   LDAA  #$20     SPACE
        BRA    OUTCH    (BSR & RTS)
 
+OUTIV  LDAA   #$07     Bell char
+       BSR    OUTCH
+       LDAA   #'?      Question mark
+       BSR    OUTCH
+       LDAA   #$08     Backspace
+       BRA    OUTCH    (BSR & RTS)
+
+OUTNL  LDAA   #$0D
+       BSR    OUTCH
+       LDAA   #$0A
+       BRA    OUTCH
      
 * PRINT CONTENTS OF STACK
 PRINT  TSX
@@ -199,24 +214,32 @@ CONTRL LDS    #STACK   SET STACK POINTER
        BEQ    OUTMBS
        CMPB  #'P
        BEQ    PUNCH
-       CMPB  #'G
-       BNE    CONTRL
+       CMPB  #'?
+       BNE    CO1
+       JMP   CMDHELP
+CO1    CMPB  #'O
+       BNE   CO2
+       JMP   PIACMD
+CO2    CMPB  #'D
+       BNE   COG
+       JMP    CMDDUMP
+COG    CMPB  #'G
+       BNE    UKCMD
        RTI             GO
 
-OUTSTR LDX    STRS
-       LDAA   0,X
-       INX
-       CPX    STRE
+UKCMD  LDX    #UC_MSG
+       BSR    OUTSTR
+       JMP    CONTRL    
+
+OUTSTR LDAA   0,X
+       CMPA   #0     NULL byte terminates string
        BEQ    OSDONE
-       STX    STRS
        JSR    OUTCH
+       INX
        BRA    OUTSTR
 OSDONE RTS
 
-OUTMBS LDX    #ASCII_FRACTAL_ST
-       STX    STRS
-       LDX    #ASCII_FRACTAL_EN
-       STX    STRE
+OUTMBS LDX    #ASCII_FRACTAL
        BSR    OUTSTR
        JMP    CONTRL
 
@@ -229,10 +252,7 @@ START  EQU    *
        LDAA  #ACONF      Set up ACIA
        STAA  ACIACS
 * Print bootmessage
-       LDX    #BOOT_STR_START
-       STX    STRS
-       LDX    #BOOT_STR_END
-       STX    STRE
+       LDX    #BOOT_MSG
        BSR    OUTSTR
        JMP    CONTRL
 
@@ -245,7 +265,13 @@ PDATA1 LDAA   0,X
        RTS             STOP ON EOT
 
 PUNCH  EQU    *
-
+       JSR    BADDR
+       LDX    XHI
+       STX    BEGA
+       JSR    OUTS
+       JSR    BADDR
+       LDX    XHI
+       STX    ENDA
        LDAA   #$12     TURN TTY PUNCH ON
        JSR    OUTCH    OUT CHAR
 
@@ -299,11 +325,98 @@ MCLOFF FCB    $13      READER OFF
 MCL    FCB    $D,$A,$14,0,0,0,'*,4   C/R,L/F,PUNCH
        RTS
 
+PIACMD JSR    INCH
+       TAB
+       JSR    OUTS          TX space
+       CMPB   #'A           Output to port A
+       BEQ    PCMA          
+       CMPB   #'B           Output to port B
+       BEQ    PCMB
+       CMPB   #'x           Both ports (A & B)
+       BEQ    PCMX
+       CMPB   #$18          Cancel (^X)
+       BEQ    PCAN
+       JSR    OUTIV         Unknown input
+       BRA    PIACMD
+
+PCAN   JMP    CMDCANCEL
+
+PCMA   JSR    BYTE
+       STAA   PIADA
+       BRA    PCDONE
+PCMB   JSR    BYTE
+       STAA   PIADA
+       BRA    PCDONE
+PCMX   JSR    BYTE
+       STAA   PIADA
+       STAA   PIADB
+PCDONE JMP    CONTRL
+
+CMDHELP
+       LDX    #HELP_STR
+       JSR    OUTSTR
+       JMP    CONTRL
+
+CMDCANCEL
+       LDX    #CMD_CANCEL_MSG
+       JSR    OUTSTR
+       JMP    CONTRL
+
+CMDDUMP
+       JSR    BADDR
+       LDX    XHI
+       STX    BEGA
+       JSR    OUTS
+       JSR    BADDR
+       LDX    XHI
+       STX    ENDA
+       LDX    BEGA
+       STX    TW       TEMP BEGINING ADDRESS
+       LDAA   #$12     TURN TTY PUNCH ON
+       JSR    OUTCH    OUT CHAR
+OUTADR JSR    OUTNL
+       LDAA   TW
+       JSR    OUTHL
+       JSR    OUTHR
+       LDAA   TW+1
+       JSR    OUTHL
+       JSR    OUTHR
+       LDAA   #':
+       JSR    OUTCH
+       JSR    OUTS
+       LDX    TW
+       CLRB
+
+CDLOOP JSR    OUT2HS
+       INCB   
+       CMPB   #16
+       BNE    CDLOOP
+       JSR    OUTS
+       LDX    TW
+       CLRB
+ASLOOP LDAA   0,X
+       CMPA   #$19   First acsii printing char - 1
+       BLS    NOPR
+ALPR   JSR    OUTCH
+       INX
+       CPX    ENDA
+       BEQ    CDONE
+       INCB   
+       CMPB   #16
+       BNE    ASLOOP
+       STX    TW
+       JMP    OUTADR
+CDONE  JMP    CONTRL
+
+NOPR   LDAA   #'-
+       BRA    ALPR
+
+
 CATCH  JMP    CONTRL           Capture any stray PC so they dont try to execute the ASCII art :-)
 
 MTAPE1 FCB    $D,$A,0,0,0,0,'S,'1,4   PUNCH FORMAT
 
-ASCII_FRACTAL_ST
+ASCII_FRACTAL
        FCC     "                                  "
        FCB    $0D,$0A  CRLF
        FCC     "                                  \\"
@@ -352,20 +465,49 @@ ASCII_FRACTAL_ST
        FCB    $0D,$0A  CRLF
        FCC     "                                 /`"
        FCB    $0D,$0A  CRLF
-ASCII_FRACTAL_EN
+       FCB    $00      NULL TERMINATE
 
-BOOT_STR_START
+BOOT_MSG
        FCC    "-- Cornelius Technologies --"
        FCB    $0D,$0A  CRLF
-       FCC    "CMON v1.0.1"
+       FCC    "CMON v1.0.2"
        FCB    $0D,$0A  CRLF
-BOOT_STR_END
+       FCB    $00      NULL TERMINATE
 
+CMD_CANCEL_MSG
+       FCB    $0D,$0A  CRLF
+       FCC    "- Command canceled"
+       FCB    $00
+UC_MSG
+       FCB    $0D,$0A  CRLF
+       FCC    "- Unknown command"
+       FCB    $00
+HELP_STR      
+       FCB    $0D,$0A  CRLF
+       FCC    "L - Load SREC program"
+       FCB    $0D,$0A  CRLF
+       FCC    "M xxxx DD nn- View/Modify memory location"
+       FCB    $0D,$0A  CRLF
+       FCC    "R - View usercode stack/register history"
+       FCB    $0D,$0A  CRLF
+       FCC    "A - Output ROM ASCII art"
+       FCB    $0D,$0A  CRLF
+       FCC    "P hhhh hhhh - Print memory range in SREC format"
+       FCB    $0D,$0A  CRLF
+       FCC    "O p dd - Write byte to port (A/B/x)"
+       FCB    $0D,$0A  CRLF
+       FCC    "? - This help message"
+       FCB    $0D,$0A  CRLF
+       FCC    "G - Jump to usercode"
+       FCB    $0D,$0A  CRLF
+       FCC    "D hhhh hhhh - Hex dump memory range"
+       FCB    $0D,$0A  CRLF
+       FCB    $00      NULL TERMINATE
 * ASCII art in ROM
 * ROM vectors 
        ORG    $FFF8
-SWIVEC FDB    PRINT         Software interupt (triggers stack print)
-IRQVEC FDB    PRINT         Maskable (IRQ) interupt (triggers IRQ subroutine)
+SWIVEC FDB    START         Software interupt (triggers stack print)
+IRQVEC FDB    START         Maskable (IRQ) interupt (triggers IRQ subroutine)
 NMIVEC FDB    START         Non-maskable (NMI) interupt (triggers reset/bootup)
 RSTVEC FDB    START         Reset event (triggers bootup)
        END

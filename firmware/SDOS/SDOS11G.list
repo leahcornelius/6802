@@ -1,0 +1,1131 @@
+6: Illegal Symbol Name
+7: Illegal Symbol Name
+8: Illegal Symbol Name
+9: Unrecognized Mnemonic 'title'
+51: Unrecognized Mnemonic 'page'
+56: Unrecognized Mnemonic 'page'
+127: Illegal Symbol Name
+139: Unrecognized Mnemonic 'with'
+141: Unrecognized Mnemonic 'ifund'
+143: Unrecognized Mnemonic 'fin'
+145: Illegal Symbol Name
+146: Unrecognized Mnemonic 'if'
+148: Unrecognized Mnemonic 'else'
+149: Symbol Redefined
+150: Unrecognized Mnemonic 'fin'
+151: Illegal Symbol Name
+152: Unrecognized Mnemonic 'ifund'
+154: Unrecognized Mnemonic 'fin'
+155: Illegal Symbol Name
+158: Illegal Symbol Name
+159: Unrecognized Mnemonic 'tabs'
+167: Unrecognized Mnemonic 'psr'
+168: Illegal Symbol Name
+169: Unrecognized Mnemonic 'ifund'
+170: Symbol Redefined
+171: Unrecognized Mnemonic 'fin'
+172: Illegal Symbol Name
+173: Unrecognized Mnemonic 'if'
+174: Unrecognized Mnemonic 'else'
+175: Unrecognized Mnemonic 'list'
+176: Unrecognized Mnemonic 'fin'
+177: Illegal Symbol Name
+185: Illegal Symbol Name
+186: Unrecognized Mnemonic 'ifund'
+187: Symbol Redefined
+188: Unrecognized Mnemonic 'fin'
+189: Illegal Symbol Name
+190: Unrecognized Mnemonic 'ifund'
+192: Unrecognized Mnemonic 'fin'
+193: Illegal Symbol Name
+197: Unrecognized Mnemonic 'page'
+233: Unrecognized Mnemonic 'page'
+374: Symbol Redefined
+375: Symbol Redefined
+376: Symbol Redefined
+384: Unrecognized Mnemonic 'page'
+397: Illegal Symbol Name
+405: Illegal Symbol Name
+417: Unrecognized Mnemonic 'page'
+434: Illegal Symbol Name
+495: Unrecognized Mnemonic 'page'
+535: Unrecognized Mnemonic 'page'
+547: Unrecognized Mnemonic 'page'
+577: Unrecognized Mnemonic 'page'
+584: Illegal Symbol Name
+756: Unrecognized Mnemonic 'page'
+773: Unrecognized Mnemonic 'ifund'
+779: Unrecognized Mnemonic 'fin'
+785: Unrecognized Mnemonic 'page'
+823: Unrecognized Mnemonic 'page'
+824: Unrecognized Mnemonic 'if'
+861: Unrecognized Mnemonic 'page'
+892: Unrecognized Mnemonic 'page'
+921: Symbol Redefined
+924: Unrecognized Mnemonic 'page'
+938: Unrecognized Mnemonic 'if'
+946: Unrecognized Mnemonic 'else'
+948: Symbol Redefined
+949: Symbol Redefined
+950: Symbol Redefined
+952: Symbol Redefined
+955: Symbol Redefined
+956: Symbol Redefined
+957: Unrecognized Mnemonic 'fin'
+958: Unrecognized Mnemonic 'page'
+961: Illegal Symbol Name
+966: Illegal Symbol Name
+968: Illegal Symbol Name
+976: Unrecognized Mnemonic ';'
+993: Unrecognized Mnemonic ';'
+994: Unrecognized Mnemonic 'page'
+1028: Symbol Redefined
+1035: Unrecognized Mnemonic 'page'
+1067: Unrecognized Mnemonic 'page'
+1089: Unrecognized Mnemonic 'if'
+1094: Unrecognized Mnemonic 'fin'
+1099: Unrecognized Mnemonic 'page'
+1129: Illegal Symbol Name
+1130: Unrecognized Mnemonic 'if'
+1132: Unrecognized Mnemonic 'fin'
+1133: Unrecognized Mnemonic 'fin'
+1134: Unrecognized Mnemonic 'page'
+1135: Unrecognized Mnemonic 'if'
+1140: Unrecognized Mnemonic 'if'
+1142: Unrecognized Mnemonic 'elseif'
+1143: Symbol Redefined
+1144: Unrecognized Mnemonic 'elseif'
+1145: Symbol Redefined
+1146: Unrecognized Mnemonic 'fin'
+1169: Unrecognized Mnemonic 'page'
+1173: Illegal Symbol Name
+1190: Unrecognized Mnemonic 'page'
+1215: Unrecognized Mnemonic 'fin'
+1216: Unrecognized Mnemonic 'if'
+1217: Unrecognized Mnemonic 'psr'
+1218: Unrecognized Mnemonic 'else'
+1219: Unrecognized Mnemonic 'list'
+1220: Unrecognized Mnemonic 'fin'
+1221: Illegal Symbol Name
+1223: Unrecognized Mnemonic ';jmp'
+1226: Unrecognized Mnemonic 'page'
+1228: Illegal Symbol Name
+1234: Unrecognized Mnemonic ';ldx'
+1236: Unrecognized Mnemonic ';ldx'
+1237: Warning --- Indexed Addressing Assumed
+1242: Unrecognized Mnemonic ';ldd'
+1245: Unrecognized Mnemonic ';std'
+1246: Warning --- Indexed Addressing Assumed
+1249: Unrecognized Mnemonic ';ldx'
+1251: Unrecognized Mnemonic ';'
+1253: Unrecognized Mnemonic 'if'
+1255: Unrecognized Mnemonic 'inx'
+1256: Unrecognized Mnemonic 'else'
+1258: Unrecognized Mnemonic 'fin'
+1261: Unrecognized Mnemonic ';ldx'
+1266: Unrecognized Mnemonic ';jsr'
+1269: Unrecognized Mnemonic 'page'
+1287: Unrecognized Mnemonic ';ldx'
+1290: Unrecognized Mnemonic 'nop'
+1291: Unrecognized Mnemonic ';lda'
+1293: Unrecognized Mnemonic ';jsr'
+1295: Unrecognized Mnemonic ';jmp'
+1297: Illegal Symbol Name
+1298: Unrecognized Mnemonic ';'
+1299: Unrecognized Mnemonic ';ldx'
+1302: Unrecognized Mnemonic ';ldx'
+1305: Unrecognized Mnemonic ';ldx'
+1308: Unrecognized Mnemonic ';jsr'
+1310: Unrecognized Mnemonic ';ldx'
+1315: Unrecognized Mnemonic ';jsr'
+1324: Unrecognized Mnemonic ';ldx'
+1329: Unrecognized Mnemonic ';jsr'
+1331: Unrecognized Mnemonic 'if'
+1333: Unrecognized Mnemonic ';cmpa'
+1335: Unrecognized Mnemonic 'else'
+1336: Unrecognized Mnemonic ';ldd'
+1337: Warning --- Indexed Addressing Assumed
+1339: Unrecognized Mnemonic ';cmpd'
+1344: Unrecognized Mnemonic 'fin'
+1348: Unrecognized Mnemonic ';cmpd'
+1356: Unrecognized Mnemonic ';cmpd'
+1362: Unrecognized Mnemonic ';ldd'
+1363: Warning --- Indexed Addressing Assumed
+1365: Unrecognized Mnemonic ';std'
+1369: Unrecognized Mnemonic ';'
+1372: Unrecognized Mnemonic 'psha'
+1373: Unrecognized Mnemonic 'decb'
+1375: Unrecognized Mnemonic ';ldx'
+1381: Unrecognized Mnemonic ';cmpa'
+1384: Unrecognized Mnemonic 'decb'
+1390: Unrecognized Mnemonic ';ldx'
+1392: Unrecognized Mnemonic ';clr'
+1398: Unrecognized Mnemonic ';cmpa'
+1401: Unrecognized Mnemonic 'page'
+1423: Unrecognized Mnemonic ';ldd'
+1426: Unrecognized Mnemonic ';pshd'
+1427: Unrecognized Mnemonic 'pshb'
+1428: Unrecognized Mnemonic 'psha'
+1429: Unrecognized Mnemonic ';ldd'
+1432: Unrecognized Mnemonic ';pshd'
+1433: Unrecognized Mnemonic 'pshb'
+1434: Unrecognized Mnemonic 'psha'
+1436: Unrecognized Mnemonic ';ldx'
+1438: Unrecognized Mnemonic ';ldx'
+1440: Unrecognized Mnemonic ';ldx'
+1442: Unrecognized Mnemonic ';jmp'
+1444: Unrecognized Mnemonic 'page'
+1445: Unrecognized Mnemonic ';'
+1446: Unrecognized Mnemonic ';ldd'
+1449: Unrecognized Mnemonic ';addd'
+1452: Unrecognized Mnemonic ';pshd'
+1453: Unrecognized Mnemonic 'pshb'
+1454: Unrecognized Mnemonic 'psha'
+1455: Unrecognized Mnemonic 'rts'
+1460: Unrecognized Mnemonic ';ldx'
+1465: Unrecognized Mnemonic ';jsr'
+1469: Unrecognized Mnemonic ';cmpd'
+1475: Unrecognized Mnemonic ';ldd'
+1476: Warning --- Indexed Addressing Assumed
+1478: Unrecognized Mnemonic ';cmpd'
+1485: Unrecognized Mnemonic 'if'
+1486: Unrecognized Mnemonic 'tba'
+1494: Unrecognized Mnemonic ';addd'
+1497: Unrecognized Mnemonic ';tdx'
+1501: Unrecognized Mnemonic 'else'
+1502: Unrecognized Mnemonic ';leax'
+1503: Unrecognized Mnemonic 'if'
+1504: Unrecognized Mnemonic 'rpt'
+1505: Unrecognized Mnemonic 'dex'
+1506: Unrecognized Mnemonic 'else'
+1507: Unrecognized Mnemonic 'rpt'
+1508: Unrecognized Mnemonic 'inx'
+1509: Unrecognized Mnemonic 'fin'
+1510: Unrecognized Mnemonic 'fin'
+1511: Unrecognized Mnemonic ';clr'
+1514: Unrecognized Mnemonic ';cmpa'
+1516: Unrecognized Mnemonic ';lbne'
+1523: Unrecognized Mnemonic 'page'
+1524: Unrecognized Mnemonic ';'
+1525: Unrecognized Mnemonic ';ldx'
+1527: Unrecognized Mnemonic ';jsr'
+1529: Unrecognized Mnemonic ';ldx'
+1531: Unrecognized Mnemonic ';jsr'
+1533: Unrecognized Mnemonic ';ldx'
+1535: Unrecognized Mnemonic ';jsr'
+1537: Unrecognized Mnemonic ';ldx'
+1539: Unrecognized Mnemonic ';lda'
+1541: Unrecognized Mnemonic ';cmpa'
+1543: Unrecognized Mnemonic ';zzz'
+1544: Unrecognized Mnemonic 'nop'
+1545: Unrecognized Mnemonic 'nop'
+1546: Unrecognized Mnemonic ';ldx'
+1549: Unrecognized Mnemonic ';inc'
+1551: Unrecognized Mnemonic ';jsr'
+1561: Unrecognized Mnemonic ';'
+1563: Unrecognized Mnemonic ';ldx'
+1565: Unrecognized Mnemonic ';jsr'
+1568: Unrecognized Mnemonic ';ldx'
+1570: Unrecognized Mnemonic ';jsr'
+1574: Unrecognized Mnemonic 'page'
+1584: Unrecognized Mnemonic ';jsr'
+1586: Unrecognized Mnemonic ';'
+1587: Unrecognized Mnemonic ';ldx'
+1590: Unrecognized Mnemonic ';clr'
+1592: Unrecognized Mnemonic 'dex'
+1596: Unrecognized Mnemonic ';'
+1597: Unrecognized Mnemonic 'page'
+1608: Unrecognized Mnemonic ';'
+1609: Unrecognized Mnemonic ';eorb'
+1612: Unrecognized Mnemonic 'aslb'
+1615: Unrecognized Mnemonic ';stb'
+1617: Unrecognized Mnemonic 'inx'
+1620: Unrecognized Mnemonic ';ldx'
+1622: Unrecognized Mnemonic 'rts'
+1623: Unrecognized Mnemonic 'page'
+1624: Unrecognized Mnemonic ';'
+1625: Unrecognized Mnemonic ';jsr'
+1628: Unrecognized Mnemonic 'rts'
+1629: Illegal Symbol Name
+1630: Unrecognized Mnemonic ';'
+1631: Unrecognized Mnemonic ';jsr'
+1633: Unrecognized Mnemonic ';ldd'
+1636: Unrecognized Mnemonic ';jsr'
+1638: Unrecognized Mnemonic ';ldx'
+1641: Unrecognized Mnemonic ';ldx'
+1644: Unrecognized Mnemonic ';ldx'
+1646: Unrecognized Mnemonic ';ldd'
+1649: Unrecognized Mnemonic ';jsr'
+1651: Unrecognized Mnemonic ';ldx'
+1654: Unrecognized Mnemonic 'page'
+1657: Unrecognized Mnemonic ';'
+1658: Unrecognized Mnemonic 'dex'
+1662: Unrecognized Mnemonic ';ldx'
+1665: Unrecognized Mnemonic ';ldx'
+1668: Unrecognized Mnemonic ';ldx'
+1671: Unrecognized Mnemonic ';ldx'
+1674: Unrecognized Mnemonic ';ldx'
+1677: Unrecognized Mnemonic ';jmp'
+1679: Illegal Symbol Name
+1680: Unrecognized Mnemonic ';'
+1681: Unrecognized Mnemonic ';sta'
+1682: Unrecognized Mnemonic 'dex'
+1684: Unrecognized Mnemonic ';sta'
+1685: Unrecognized Mnemonic 'dex'
+1688: Unrecognized Mnemonic 'page'
+1689: Unrecognized Mnemonic ';'
+1693: Illegal Symbol Name
+1704: Illegal Symbol Name
+1705: Unrecognized Mnemonic ';'
+1709: Unrecognized Mnemonic ';ldx'
+1711: Unrecognized Mnemonic ';jsr'
+1713: Unrecognized Mnemonic ';jmp'
+1715: Illegal Symbol Name
+1716: Unrecognized Mnemonic ';'
+1720: Illegal Symbol Name
+1725: Unrecognized Mnemonic 'page'
+1731: Unrecognized Mnemonic ';std'
+1735: Unrecognized Mnemonic ';'
+1736: Unrecognized Mnemonic 'pshb'
+1737: Unrecognized Mnemonic ';lda'
+1739: Unrecognized Mnemonic 'inx'
+1742: Unrecognized Mnemonic ';ldx'
+1744: Unrecognized Mnemonic ';std'
+1745: Warning --- Indexed Addressing Assumed
+1747: Unrecognized Mnemonic 'inx'
+1748: Unrecognized Mnemonic 'inx'
+1750: Unrecognized Mnemonic ';ldx'
+1752: Unrecognized Mnemonic 'pulb'
+1753: Unrecognized Mnemonic 'decb'
+1755: Unrecognized Mnemonic 'rts'
+1756: Illegal Symbol Name
+1757: Unrecognized Mnemonic ';'
+1760: Unrecognized Mnemonic 'lsra'
+1761: Unrecognized Mnemonic 'lsra'
+1762: Unrecognized Mnemonic 'lsra'
+1765: Unrecognized Mnemonic ';cmpa'
+1771: Unrecognized Mnemonic ';cmpb'
+1776: Unrecognized Mnemonic 'rts'
+1777: Illegal Symbol Name
+1784: Unrecognized Mnemonic ';jmp'
+1786: Illegal Symbol Name
+1787: Unrecognized Mnemonic ';'
+1791: Unrecognized Mnemonic ';ldx'
+1793: Unrecognized Mnemonic ';ldx'
+1794: Warning --- Indexed Addressing Assumed
+1796: Unrecognized Mnemonic ';ldx'
+1797: Warning --- Indexed Addressing Assumed
+1799: Unrecognized Mnemonic ';ldx'
+1801: Unrecognized Mnemonic ';ldx'
+1802: Warning --- Indexed Addressing Assumed
+1804: Unrecognized Mnemonic ';'
+1806: Unrecognized Mnemonic ';inc'
+1811: Illegal Symbol Name
+1812: Unrecognized Mnemonic ';'
+1815: Unrecognized Mnemonic ';ldx'
+1817: Unrecognized Mnemonic ';ldx'
+1818: Warning --- Indexed Addressing Assumed
+1820: Unrecognized Mnemonic ';jsr'
+1821: Warning --- Indexed Addressing Assumed
+1824: Unrecognized Mnemonic ';ldx'
+1826: Unrecognized Mnemonic ';ldx'
+1827: Warning --- Indexed Addressing Assumed
+1829: Unrecognized Mnemonic ';jsr'
+1832: Unrecognized Mnemonic ';jsr'
+1838: Unrecognized Mnemonic 'page'
+1842: Unrecognized Mnemonic ';ldx'
+1844: Unrecognized Mnemonic ';ldx'
+1845: Warning --- Indexed Addressing Assumed
+1847: Unrecognized Mnemonic ';ldx'
+1849: Unrecognized Mnemonic ';ldx'
+1850: Warning --- Indexed Addressing Assumed
+1852: Unrecognized Mnemonic ';ldx'
+1854: Warning --- Indexed Addressing Assumed
+1855: Unrecognized Mnemonic ';ldx'
+1856: Warning --- Indexed Addressing Assumed
+1859: Unrecognized Mnemonic ';ldx'
+1861: Warning --- Indexed Addressing Assumed
+1862: Unrecognized Mnemonic ';ldx'
+1863: Warning --- Indexed Addressing Assumed
+1866: Unrecognized Mnemonic ';ldx'
+1868: Warning --- Indexed Addressing Assumed
+1869: Unrecognized Mnemonic ';ldx'
+1870: Warning --- Indexed Addressing Assumed
+1873: Unrecognized Mnemonic ';ldx'
+1875: Unrecognized Mnemonic ';ldd'
+1876: Warning --- Indexed Addressing Assumed
+1877: Warning --- Indexed Addressing Assumed
+1878: Unrecognized Mnemonic ';std'
+1881: Unrecognized Mnemonic ';ldd'
+1884: Unrecognized Mnemonic ';std'
+1885: Warning --- Indexed Addressing Assumed
+1886: Warning --- Indexed Addressing Assumed
+1887: Unrecognized Mnemonic ';ldx'
+1888: Warning --- Indexed Addressing Assumed
+1889: Illegal Symbol Name
+1890: Unrecognized Mnemonic ';'
+1891: Unrecognized Mnemonic ';inc'
+1893: Unrecognized Mnemonic ';ldx'
+1894: Warning --- Indexed Addressing Assumed
+1897: Unrecognized Mnemonic 'page'
+1903: Unrecognized Mnemonic ';ldd'
+1906: Unrecognized Mnemonic ';addd'
+1909: Unrecognized Mnemonic ';tdx'
+1913: Unrecognized Mnemonic ';'
+1915: Unrecognized Mnemonic ';ldx'
+1916: Warning --- Indexed Addressing Assumed
+1918: Unrecognized Mnemonic ';ldx'
+1920: Unrecognized Mnemonic ';ldd'
+1923: Unrecognized Mnemonic ';std'
+1924: Warning --- Indexed Addressing Assumed
+1925: Warning --- Indexed Addressing Assumed
+1926: Unrecognized Mnemonic ';ldx'
+1928: Unrecognized Mnemonic ';ldx'
+1929: Warning --- Indexed Addressing Assumed
+1930: Unrecognized Mnemonic ';'
+1931: Unrecognized Mnemonic ';ldd'
+1934: Unrecognized Mnemonic ';std'
+1935: Warning --- Indexed Addressing Assumed
+1936: Warning --- Indexed Addressing Assumed
+1937: Unrecognized Mnemonic ';ldx'
+1938: Warning --- Indexed Addressing Assumed
+1940: Unrecognized Mnemonic ';ldx'
+1942: Unrecognized Mnemonic ';jsr'
+1943: Warning --- Indexed Addressing Assumed
+1946: Unrecognized Mnemonic ';ldx'
+1948: Unrecognized Mnemonic ';jsr'
+1954: Unrecognized Mnemonic ';jsr'
+1959: Unrecognized Mnemonic ';ldx'
+1963: Unrecognized Mnemonic 'page'
+1968: Unrecognized Mnemonic ';ldx'
+1973: Unrecognized Mnemonic 'aslb'
+1980: Unrecognized Mnemonic ';stb'
+1983: Unrecognized Mnemonic 'nop'
+1984: Unrecognized Mnemonic ';jsr'
+1986: Unrecognized Mnemonic ';ldx'
+1988: Unrecognized Mnemonic ';jsr'
+1993: Unrecognized Mnemonic ';ldx'
+1996: Unrecognized Mnemonic ';ldx'
+1998: Unrecognized Mnemonic ';clr'
+1999: Warning --- Indexed Addressing Assumed
+2000: Unrecognized Mnemonic ';clr'
+2001: Warning --- Indexed Addressing Assumed
+2002: Unrecognized Mnemonic ';clr'
+2003: Warning --- Indexed Addressing Assumed
+2004: Unrecognized Mnemonic ';jsr'
+2006: Unrecognized Mnemonic ';ldx'
+2007: Warning --- Indexed Addressing Assumed
+2010: Unrecognized Mnemonic 'inx'
+2011: Unrecognized Mnemonic 'deca'
+2014: Unrecognized Mnemonic ';jsr'
+2016: Unrecognized Mnemonic ';ldx'
+2017: Warning --- Indexed Addressing Assumed
+2018: Warning --- Indexed Addressing Assumed
+2019: Unrecognized Mnemonic ';jsr'
+2021: Unrecognized Mnemonic ';std'
+2024: Warning --- Indexed Addressing Assumed
+2025: Unrecognized Mnemonic ';jsr'
+2027: Unrecognized Mnemonic ';std'
+2030: Warning --- Indexed Addressing Assumed
+2031: Unrecognized Mnemonic ';jsr'
+2033: Unrecognized Mnemonic ';std'
+2036: Unrecognized Mnemonic ';ldx'
+2038: Unrecognized Mnemonic ';jsr'
+2040: Unrecognized Mnemonic ';ldx'
+2042: Unrecognized Mnemonic ';jsr'
+2044: Unrecognized Mnemonic ';jsr'
+2046: Unrecognized Mnemonic 'okrts'
+2047: Unrecognized Mnemonic 'page'
+2053: Unrecognized Mnemonic 'tab'
+2054: Unrecognized Mnemonic 'lsra'
+2055: Unrecognized Mnemonic 'lsra'
+2056: Unrecognized Mnemonic 'lsra'
+2057: Unrecognized Mnemonic 'lsra'
+2059: Unrecognized Mnemonic ';addd'
+2062: Unrecognized Mnemonic 'rts'
+2067: Unrecognized Mnemonic ';jsr'
+2069: Unrecognized Mnemonic ';jsr'
+2071: Unrecognized Mnemonic ';jsr'
+2073: Unrecognized Mnemonic 'okrts'
+2074: Unrecognized Mnemonic 'page'
+2092: Unrecognized Mnemonic ';ldx'
+2094: Unrecognized Mnemonic ';ldd'
+2095: Warning --- Indexed Addressing Assumed
+2096: Warning --- Indexed Addressing Assumed
+2098: Unrecognized Mnemonic ';addd'
+2101: Unrecognized Mnemonic ';subd'
+2104: Unrecognized Mnemonic ';pshd'
+2105: Unrecognized Mnemonic 'pshb'
+2106: Unrecognized Mnemonic 'psha'
+2107: Unrecognized Mnemonic ';ldd'
+2110: Unrecognized Mnemonic ';subd'
+2113: Unrecognized Mnemonic ';comd'
+2114: Unrecognized Mnemonic 'comb'
+2115: Unrecognized Mnemonic 'coma'
+2116: Unrecognized Mnemonic ';andd'
+2117: Unrecognized Mnemonic 'tsx'
+2118: Warning --- Indexed Addressing Assumed
+2120: Unrecognized Mnemonic ';leas'
+2121: Unrecognized Mnemonic 'if'
+2122: Unrecognized Mnemonic 'rpt'
+2123: Unrecognized Mnemonic 'des'
+2124: Unrecognized Mnemonic 'else'
+2125: Unrecognized Mnemonic 'rpt'
+2126: Unrecognized Mnemonic 'ins'
+2127: Unrecognized Mnemonic 'fin'
+2128: Unrecognized Mnemonic ';std'
+2132: Unrecognized Mnemonic ';ldx'
+2134: Unrecognized Mnemonic ';subd'
+2135: Warning --- Indexed Addressing Assumed
+2136: Warning --- Indexed Addressing Assumed
+2137: Unrecognized Mnemonic ';cmpd'
+2138: Warning --- Indexed Addressing Assumed
+2140: Warning --- Indexed Addressing Assumed
+2144: Unrecognized Mnemonic ';std'
+2147: Unrecognized Mnemonic ';clr'
+2150: Unrecognized Mnemonic ';inc'
+2153: Unrecognized Mnemonic ';subd'
+2158: Unrecognized Mnemonic ';dec'
+2161: Unrecognized Mnemonic ';ldx'
+2163: Unrecognized Mnemonic ';ldd'
+2164: Warning --- Indexed Addressing Assumed
+2165: Warning --- Indexed Addressing Assumed
+2166: Unrecognized Mnemonic ';subd'
+2169: Unrecognized Mnemonic ';clr'
+2172: Unrecognized Mnemonic ';inc'
+2175: Unrecognized Mnemonic ';subd'
+2180: Unrecognized Mnemonic ';dec'
+2185: Unrecognized Mnemonic ';addd'
+2189: Unrecognized Mnemonic ';inc'
+2192: Unrecognized Mnemonic ';subd'
+2196: Unrecognized Mnemonic ';addd'
+2200: Unrecognized Mnemonic ';dec'
+2205: Unrecognized Mnemonic ';cmpa'
+2209: Unrecognized Mnemonic ';'
+2210: Unrecognized Mnemonic ';dec'
+2214: Unrecognized Mnemonic ';jsr'
+2217: Illegal Symbol Name
+2218: Unrecognized Mnemonic ';'
+2221: Unrecognized Mnemonic ';cmpa'
+2224: Unrecognized Mnemonic ';ldx'
+2228: Unrecognized Mnemonic ';ldx'
+2230: Unrecognized Mnemonic ';ldd'
+2231: Warning --- Indexed Addressing Assumed
+2232: Warning --- Indexed Addressing Assumed
+2237: Unrecognized Mnemonic ';ldd'
+2240: Unrecognized Mnemonic ';'
+2241: Unrecognized Mnemonic ';addd'
+2244: Unrecognized Mnemonic ';dec'
+2247: Unrecognized Mnemonic ';ldx'
+2252: Unrecognized Mnemonic ';ldx'
+2254: Unrecognized Mnemonic ';ldd'
+2258: Unrecognized Mnemonic ';std'
+2259: Warning --- Indexed Addressing Assumed
+2260: Warning --- Indexed Addressing Assumed
+2261: Unrecognized Mnemonic ';clr'
+2262: Warning --- Indexed Addressing Assumed
+2263: Unrecognized Mnemonic ';clr'
+2264: Warning --- Indexed Addressing Assumed
+2265: Warning --- Indexed Addressing Assumed
+2266: Unrecognized Mnemonic ';clr'
+2267: Warning --- Indexed Addressing Assumed
+2268: Unrecognized Mnemonic ';clr'
+2269: Warning --- Indexed Addressing Assumed
+2271: Unrecognized Mnemonic ';addd'
+2274: Unrecognized Mnemonic ';ldx'
+2275: Warning --- Indexed Addressing Assumed
+2278: Unrecognized Mnemonic 'okrts'
+2279: Unrecognized Mnemonic 'page'
+2287: Unrecognized Mnemonic ';std'
+2290: Unrecognized Mnemonic ';ldd'
+2293: Unrecognized Mnemonic ';subd'
+2297: Unrecognized Mnemonic ';std'
+2302: Unrecognized Mnemonic ';dec'
+2304: Unrecognized Mnemonic ';ldx'
+2306: Unrecognized Mnemonic ';jsr'
+2308: Unrecognized Mnemonic ';ldd'
+2311: Unrecognized Mnemonic ';addd'
+2315: Illegal Symbol Name
+2317: Unrecognized Mnemonic 'rts'
+2318: Unrecognized Mnemonic 'page'
+2324: Unrecognized Mnemonic ';ldx'
+2326: Warning --- Indexed Addressing Assumed
+2332: Unrecognized Mnemonic ';ldd'
+2333: Warning --- Indexed Addressing Assumed
+2337: Unrecognized Mnemonic ';subd'
+2340: Unrecognized Mnemonic ';tdx'
+2344: Unrecognized Mnemonic ';clr'
+2345: Warning --- Indexed Addressing Assumed
+2346: Unrecognized Mnemonic ';dec'
+2349: Unrecognized Mnemonic ';ldx'
+2352: Unrecognized Mnemonic 'rts'
+2353: Unrecognized Mnemonic 'page'
+2360: Unrecognized Mnemonic ';ldx'
+2363: Unrecognized Mnemonic ';clr'
+2365: Unrecognized Mnemonic ';ldx'
+2367: Unrecognized Mnemonic ';ldx'
+2368: Warning --- Indexed Addressing Assumed
+2372: Unrecognized Mnemonic ';inc'
+2374: Unrecognized Mnemonic ';clr'
+2375: Warning --- Indexed Addressing Assumed
+2376: Unrecognized Mnemonic ';clr'
+2377: Warning --- Indexed Addressing Assumed
+2378: Unrecognized Mnemonic ';clr'
+2379: Warning --- Indexed Addressing Assumed
+2380: Unrecognized Mnemonic ';clr'
+2381: Warning --- Indexed Addressing Assumed
+2382: Unrecognized Mnemonic ';clr'
+2383: Warning --- Indexed Addressing Assumed
+2384: Unrecognized Mnemonic ';clr'
+2385: Warning --- Indexed Addressing Assumed
+2387: Warning --- Indexed Addressing Assumed
+2388: Warning --- Indexed Addressing Assumed
+2389: Warning --- Indexed Addressing Assumed
+2390: Warning --- Indexed Addressing Assumed
+2391: Warning --- Indexed Addressing Assumed
+2392: Warning --- Indexed Addressing Assumed
+2393: Unrecognized Mnemonic ';ldd'
+2394: Warning --- Indexed Addressing Assumed
+2395: Warning --- Indexed Addressing Assumed
+2396: Unrecognized Mnemonic ';cmpd'
+2402: Unrecognized Mnemonic ';std'
+2406: Unrecognized Mnemonic ';clr'
+2407: Warning --- Indexed Addressing Assumed
+2408: Unrecognized Mnemonic ';dec'
+2409: Warning --- Indexed Addressing Assumed
+2411: Unrecognized Mnemonic ';inc'
+2412: Warning --- Indexed Addressing Assumed
+2413: Unrecognized Mnemonic ';lsrd'
+2414: Unrecognized Mnemonic 'lsra'
+2415: Unrecognized Mnemonic 'rorb'
+2417: Unrecognized Mnemonic ';tstd'
+2418: Unrecognized Mnemonic 'tsta'
+2419: Unrecognized Mnemonic ';bned'
+2421: Unrecognized Mnemonic 'tstb'
+2423: Unrecognized Mnemonic ';ldd'
+2424: Warning --- Indexed Addressing Assumed
+2425: Warning --- Indexed Addressing Assumed
+2426: Unrecognized Mnemonic ';subd'
+2429: Unrecognized Mnemonic ';std'
+2430: Warning --- Indexed Addressing Assumed
+2431: Warning --- Indexed Addressing Assumed
+2435: Unrecognized Mnemonic ';ldd'
+2436: Warning --- Indexed Addressing Assumed
+2437: Warning --- Indexed Addressing Assumed
+2438: Unrecognized Mnemonic ';clr'
+2439: Warning --- Indexed Addressing Assumed
+2440: Unrecognized Mnemonic ';std'
+2441: Warning --- Indexed Addressing Assumed
+2442: Warning --- Indexed Addressing Assumed
+2443: Unrecognized Mnemonic ';ldd'
+2444: Warning --- Indexed Addressing Assumed
+2445: Warning --- Indexed Addressing Assumed
+2447: Unrecognized Mnemonic ';ldd'
+2448: Warning --- Indexed Addressing Assumed
+2449: Warning --- Indexed Addressing Assumed
+2454: Unrecognized Mnemonic ';ldx'
+2455: Warning --- Indexed Addressing Assumed
+2456: Unrecognized Mnemonic ';ldd'
+2457: Warning --- Indexed Addressing Assumed
+2458: Warning --- Indexed Addressing Assumed
+2459: Unrecognized Mnemonic ';jsr'
+2462: Unrecognized Mnemonic ';ldx'
+2464: Unrecognized Mnemonic ';ldx'
+2465: Warning --- Indexed Addressing Assumed
+2467: Unrecognized Mnemonic 'okrts'
+2468: Illegal Symbol Name
+2470: Unrecognized Mnemonic ';jmp'
+2472: Unrecognized Mnemonic 'page'
+2474: Unrecognized Mnemonic ';jsr'
+2487: Unrecognized Mnemonic ';std'
+2494: Unrecognized Mnemonic ';'
+2495: Unrecognized Mnemonic ';rord'
+2496: Unrecognized Mnemonic 'rora'
+2497: Unrecognized Mnemonic 'rorb'
+2499: Warning --- Indexed Addressing Assumed
+2500: Warning --- Indexed Addressing Assumed
+2501: Warning --- Indexed Addressing Assumed
+2503: Unrecognized Mnemonic ';addd'
+2507: Unrecognized Mnemonic ';dec'
+2511: Unrecognized Mnemonic ';tstd'
+2512: Unrecognized Mnemonic 'tsta'
+2513: Unrecognized Mnemonic ';bned'
+2515: Unrecognized Mnemonic 'tstb'
+2517: Unrecognized Mnemonic 'okrts'
+2518: Illegal Symbol Name
+2520: Unrecognized Mnemonic ';jsr'
+2523: Unrecognized Mnemonic 'page'
+2529: Unrecognized Mnemonic ';ldx'
+2531: Warning --- Indexed Addressing Assumed
+2533: Unrecognized Mnemonic ';ldx'
+2534: Warning --- Indexed Addressing Assumed
+2535: Unrecognized Mnemonic ';'
+2537: Unrecognized Mnemonic ';ldx'
+2540: Unrecognized Mnemonic ';ldx'
+2542: Unrecognized Mnemonic ';leax'
+2543: Unrecognized Mnemonic 'if'
+2544: Unrecognized Mnemonic 'rpt'
+2545: Unrecognized Mnemonic 'dex'
+2546: Unrecognized Mnemonic 'else'
+2547: Unrecognized Mnemonic 'rpt'
+2548: Unrecognized Mnemonic 'inx'
+2549: Unrecognized Mnemonic 'fin'
+2550: Unrecognized Mnemonic ';dec'
+2553: Unrecognized Mnemonic ';ldx'
+2556: Unrecognized Mnemonic ';ldx'
+2559: Unrecognized Mnemonic 'okrts'
+2564: Unrecognized Mnemonic ';clr'
+2565: Warning --- Indexed Addressing Assumed
+2566: Unrecognized Mnemonic ';clr'
+2567: Warning --- Indexed Addressing Assumed
+2568: Unrecognized Mnemonic 'rts'
+2569: Unrecognized Mnemonic 'page'
+2575: Illegal Symbol Name
+2576: Unrecognized Mnemonic ';'
+2577: Unrecognized Mnemonic ';clr'
+2579: Unrecognized Mnemonic ';ldx'
+2582: Unrecognized Mnemonic ';jmp'
+2584: Illegal Symbol Name
+2585: Unrecognized Mnemonic ';'
+2586: Unrecognized Mnemonic 'page'
+2596: Unrecognized Mnemonic 'compute'
+2598: Unrecognized Mnemonic ';'
+2599: Unrecognized Mnemonic ';ldx'
+2601: Unrecognized Mnemonic ';inc'
+2603: Unrecognized Mnemonic ';ldx'
+2606: Unrecognized Mnemonic ';'
+2609: Unrecognized Mnemonic 'inx'
+2614: Unrecognized Mnemonic ';'
+2615: Unrecognized Mnemonic ';ldx'
+2617: Unrecognized Mnemonic ';inc'
+2619: Unrecognized Mnemonic ';ldx'
+2622: Unrecognized Mnemonic ';'
+2625: Unrecognized Mnemonic 'inx'
+2630: Unrecognized Mnemonic 'page'
+2631: Unrecognized Mnemonic ';'
+2632: Unrecognized Mnemonic ';ldx'
+2634: Unrecognized Mnemonic ';inc'
+2636: Unrecognized Mnemonic ';ldx'
+2639: Unrecognized Mnemonic ';'
+2648: Unrecognized Mnemonic 'page'
+2658: Unrecognized Mnemonic ';'
+2666: Unrecognized Mnemonic ';'
+2674: Unrecognized Mnemonic ';'
+2681: Illegal Symbol Name
+2684: Unrecognized Mnemonic 'page'
+2685: Unrecognized Mnemonic ';'
+2691: Illegal Symbol Name
+2692: Unrecognized Mnemonic ';zzz'
+2695: Illegal Symbol Name
+2696: Unrecognized Mnemonic ';'
+2702: Illegal Symbol Name
+2704: Illegal Symbol Name
+2705: Unrecognized Mnemonic ';'
+2708: Illegal Symbol Name
+2709: Unrecognized Mnemonic ';'
+2712: Illegal Symbol Name
+2713: Unrecognized Mnemonic ';'
+2715: Illegal Symbol Name
+2716: Unrecognized Mnemonic ';'
+2723: Illegal Symbol Name
+2724: Unrecognized Mnemonic ';'
+2730: Illegal Symbol Name
+2732: Illegal Symbol Name
+2734: Illegal Symbol Name
+2735: Unrecognized Mnemonic ';'
+2737: Unrecognized Mnemonic ';'
+2739: Illegal Symbol Name
+2740: Unrecognized Mnemonic 'if'
+2741: Unrecognized Mnemonic '?sdos'
+2742: Unrecognized Mnemonic 'fin'
+2762: Unrecognized Mnemonic ';jmp'
+2764: Unrecognized Mnemonic ';jmp'
+2766: Unrecognized Mnemonic ';jmp'
+2768: Unrecognized Mnemonic ';jmp'
+2773: Unrecognized Mnemonic ';jmp'
+2775: Unrecognized Mnemonic ';jmp'
+2777: Unrecognized Mnemonic ';jmp'
+2779: Unrecognized Mnemonic ';jmp'
+2781: Unrecognized Mnemonic ';jmp'
+2783: Unrecognized Mnemonic ';jmp'
+2785: Unrecognized Mnemonic ';jmp'
+2787: Unrecognized Mnemonic ';jmp'
+2789: Unrecognized Mnemonic ';jmp'
+2791: Unrecognized Mnemonic ';jmp'
+2793: Unrecognized Mnemonic ';jmp'
+2795: Unrecognized Mnemonic ';jmp'
+2797: Unrecognized Mnemonic ';jmp'
+2800: Unrecognized Mnemonic 'page'
+2805: Illegal Symbol Name
+2819: Illegal Symbol Name
+2820: Unrecognized Mnemonic ';'
+2824: Illegal Symbol Name
+2826: Unrecognized Mnemonic 'page'
+2830: Unrecognized Mnemonic 'if'
+2835: Unrecognized Mnemonic 'else'
+2837: Symbol Redefined
+2843: Unrecognized Mnemonic 'fin'
+2844: Illegal Symbol Name
+2849: Illegal Symbol Name
+2850: Unrecognized Mnemonic ';'
+2862: Illegal Symbol Name
+2910: Unrecognized Mnemonic ';'
+2954: Illegal Symbol Name
+2957: Unrecognized Mnemonic ';jmp'
+2959: Unrecognized Mnemonic ';jmp'
+2961: Unrecognized Mnemonic ';jmp'
+2964: Unrecognized Mnemonic ';jmp'
+2976: Unrecognized Mnemonic 'page'
+3022: Unrecognized Mnemonic ';'
+3036: Unrecognized Mnemonic ';'
+3044: Unrecognized Mnemonic ';'
+3049: Unrecognized Mnemonic ';'
+3050: Unrecognized Mnemonic 'rpt'
+3052: Unrecognized Mnemonic 'page'
+3064: Unrecognized Mnemonic 'nop'
+3065: Unrecognized Mnemonic 'nop'
+3067: Unrecognized Mnemonic 'if'
+3068: Unrecognized Mnemonic ';'
+3069: Unrecognized Mnemonic 'des'
+3070: Unrecognized Mnemonic 'ins'
+3071: Unrecognized Mnemonic 'rts'
+3072: Unrecognized Mnemonic 'rti'
+3073: Unrecognized Mnemonic 'rti'
+3074: Unrecognized Mnemonic 'rti'
+3075: Unrecognized Mnemonic 'rti'
+3076: Illegal Symbol Name
+3077: Illegal Symbol Name
+3078: Illegal Symbol Name
+3080: Illegal Symbol Name
+3081: Illegal Symbol Name
+3084: Unrecognized Mnemonic ';sta'
+3088: Unrecognized Mnemonic 'page'
+3103: Unrecognized Mnemonic 'else'
+3104: Unrecognized Mnemonic ';'
+3105: Unrecognized Mnemonic ';ldd'
+3109: Unrecognized Mnemonic ';ldx'
+3112: Unrecognized Mnemonic ';std'
+3115: Unrecognized Mnemonic ';stb'
+3117: Unrecognized Mnemonic 'rts'
+3118: Unrecognized Mnemonic 'fin'
+3119: Unrecognized Mnemonic 'page'
+3129: Unrecognized Mnemonic ';'
+3132: Unrecognized Mnemonic ';'
+3138: Illegal Symbol Name
+3139: Unrecognized Mnemonic ';'
+3144: Unrecognized Mnemonic ';'
+3146: Unrecognized Mnemonic ';'
+3148: Illegal Symbol Name
+3149: Unrecognized Mnemonic ';'
+3155: Illegal Symbol Name
+3157: Illegal Symbol Name
+3158: Unrecognized Mnemonic ';'
+3160: Unrecognized Mnemonic ';'
+3161: Illegal Symbol Name
+3163: Illegal Symbol Name
+3165: Unrecognized Mnemonic 'initially'
+3166: Illegal Symbol Name
+3168: Illegal Symbol Name
+3169: Unrecognized Mnemonic ';'
+3171: Illegal Symbol Name
+3172: Unrecognized Mnemonic ';'
+3174: Unrecognized Mnemonic 'page'
+3204: Unrecognized Mnemonic 'page'
+3225: Unrecognized Mnemonic 'page'
+3226: Unrecognized Mnemonic ';'
+3231: Unrecognized Mnemonic ';eora'
+3237: Unrecognized Mnemonic ';eora'
+3243: Unrecognized Mnemonic ';eora'
+3249: Unrecognized Mnemonic ';eora'
+3255: Unrecognized Mnemonic ';eora'
+3261: Unrecognized Mnemonic ';eora'
+3267: Unrecognized Mnemonic ';eora'
+3272: Unrecognized Mnemonic ';jmp'
+3274: Unrecognized Mnemonic 'page'
+3279: Unrecognized Mnemonic ';'
+3284: Unrecognized Mnemonic ';jsr'
+3287: Unrecognized Mnemonic ';'
+3292: Unrecognized Mnemonic ';eora'
+3294: Unrecognized Mnemonic ';'
+3296: Unrecognized Mnemonic ';'
+3297: Unrecognized Mnemonic ';eora'
+3300: Unrecognized Mnemonic ';eora'
+3305: Unrecognized Mnemonic ';eora'
+3310: Unrecognized Mnemonic ';eora'
+3315: Unrecognized Mnemonic ';eora'
+3320: Unrecognized Mnemonic ';eora'
+3325: Unrecognized Mnemonic ';eora'
+3330: Unrecognized Mnemonic ';eora'
+3335: Unrecognized Mnemonic ';eora'
+3341: Unrecognized Mnemonic ';jsr'
+3345: Unrecognized Mnemonic 'page'
+3346: Unrecognized Mnemonic ';'
+3348: Unrecognized Mnemonic ';eora'
+3350: Unrecognized Mnemonic ';eora'
+3352: Unrecognized Mnemonic ';eora'
+3354: Unrecognized Mnemonic ';eora'
+3356: Unrecognized Mnemonic ';eora'
+3358: Unrecognized Mnemonic ';eora'
+3360: Unrecognized Mnemonic ';eora'
+3362: Unrecognized Mnemonic 'rts'
+3363: Illegal Symbol Name
+3364: Unrecognized Mnemonic 'if'
+3365: Unrecognized Mnemonic ';'
+3370: Unrecognized Mnemonic ';'
+3375: Unrecognized Mnemonic ';jsr'
+3379: Unrecognized Mnemonic ';'
+3382: Unrecognized Mnemonic ';eora'
+3387: Unrecognized Mnemonic ';eora'
+3392: Unrecognized Mnemonic ';eora'
+3397: Unrecognized Mnemonic ';eora'
+3402: Unrecognized Mnemonic ';eora'
+3407: Unrecognized Mnemonic ';eora'
+3412: Unrecognized Mnemonic ';eora'
+3417: Unrecognized Mnemonic ';eora'
+3421: Unrecognized Mnemonic ';inc'
+3423: Unrecognized Mnemonic ';'
+3428: Unrecognized Mnemonic ';'
+3430: Unrecognized Mnemonic ';eora'
+3435: Unrecognized Mnemonic ';eora'
+3440: Unrecognized Mnemonic ';eora'
+3445: Unrecognized Mnemonic ';eora'
+3450: Unrecognized Mnemonic ';eora'
+3455: Unrecognized Mnemonic ';eora'
+3460: Unrecognized Mnemonic ';eora'
+3466: Unrecognized Mnemonic ';eora'
+3468: Unrecognized Mnemonic ';eora'
+3472: Unrecognized Mnemonic ';inc'
+3474: Unrecognized Mnemonic ';'
+3479: Unrecognized Mnemonic ';jmp'
+3481: Illegal Symbol Name
+3482: Unrecognized Mnemonic ';'
+3484: Unrecognized Mnemonic ';jsr'
+3487: Unrecognized Mnemonic 'rts'
+3488: Unrecognized Mnemonic 'fin'
+3497: Unrecognized Mnemonic ';'
+3498: Unrecognized Mnemonic ';'
+3499: Illegal Symbol Name
+3504: Unrecognized Mnemonic 'page'
+3508: Unrecognized Mnemonic 'open:sclen,#openOPEN FILE'
+3509: Unrecognized Mnemonic 'create:sclen,#crCREATE A NEW FILE'
+3510: Unrecognized Mnemonic 'close:sclen,#cloCLOSE A FILE'
+3511: Unrecognized Mnemonic 'rename:sclen,#reRENAME A FILE'
+3512: Unrecognized Mnemonic 'delete:sclen,#deDELETE A FILE'
+3513: Unrecognized Mnemonic 'load:sclen,#loadLOAD A FILE INTO MEMORY'
+3514: Unrecognized Mnemonic 'chain:sclen,#chaCHAIN TO A FILE'
+3515: Unrecognized Mnemonic 'createlog:sclen,CREATE A FILE FOR OUTPUT ON LOG CHANNEL'
+3516: Unrecognized Mnemonic 'closelog:sclen,#CLOSE LOG OUTPUT FILE'
+3517: Unrecognized Mnemonic 'diskdefault:scleSET DISK DEFAULT DEVICE'
+3518: Unrecognized Mnemonic 'reada:sclen,#reaREAD ASCII BYTES FROM A FILE'
+3519: Unrecognized Mnemonic 'readb:sclen,#reaREAD BINARY BYTES FROM A FILE'
+3520: Unrecognized Mnemonic 'writea:sclen,#wrWRITE ASCII BYTES TO A FILE'
+3521: Unrecognized Mnemonic 'writeb:sclen,#wrWRITE BINARY BYTES TO A FILE'
+3522: Unrecognized Mnemonic 'control:sclen,#cPERFORM A CONTROL OPERATION ON AN I/O CHANNEL'
+3523: Unrecognized Mnemonic 'status:sclen,#stREAD STATUS FROM AN I/O CHANNEL'
+3524: Unrecognized Mnemonic 'waitdone:sclen,#WAIT FOR I/O CHANNEL OPERATION DONE'
+3525: Unrecognized Mnemonic 'exit:sclen,#exitGIVE CONTROL BACK TO THE OPERATING SYSTEM'
+3526: Unrecognized Mnemonic 'errorexit:sclen,EXIT TO SYSTEM WITH ERROR CODE'
+3527: Unrecognized Mnemonic 'seterror:sclen,#REPORT AN ERROR TO THE SYSTEM'
+3528: Unrecognized Mnemonic 'geterror:sclen,#RETURN THE LAST ERROR CODE'
+3529: Unrecognized Mnemonic 'disperror:sclen,DISPLAY USER'S LAST ERROR'
+3530: Unrecognized Mnemonic 'killproof:sclen,MAKE USER PROGRAM KILL-PROOF'
+3531: Unrecognized Mnemonic 'killenable:sclenMAKE USER PROGRAM KILLABLE'
+3532: Unrecognized Mnemonic 'debug:sclen,#debCALL SYSTEM DEBUGGER'
+3533: Unrecognized Mnemonic 'attncheck:sclen,OPERATOR ATTENTION CHECK'
+3534: Unrecognized Mnemonic 'isconsole:sclen,IS CHANNEL ZERO OPEN TO CONSOLE PREDICATE'
+3535: Unrecognized Mnemonic 'interlock:sclen,OPERATE ON INTERLOCK OBJECT'
+3536: Unrecognized Mnemonic 'delay:sclen,#delDELAY FOR SPECIFIED NUMBER OF CLOCK TICKS'
+3537: Unrecognized Mnemonic 'readlunname:scleREAD NAME OF LOGICAL UNIT'
+3538: Unrecognized Mnemonic 'getserialnumber:GET SERIAL NUMBER OF COMPUTER'
+3540: Unrecognized Mnemonic 'page'
+3555: Warning --- Indexed Addressing Assumed
+3556: Unrecognized Mnemonic ';cmpb'
+3560: Warning --- Indexed Addressing Assumed
+3561: Unrecognized Mnemonic 'if'
+3562: Unrecognized Mnemonic '+error'
+3563: Unrecognized Mnemonic 'fin'
+3565: Warning --- Indexed Addressing Assumed
+3567: Unrecognized Mnemonic ';cmpa'
+3570: Unrecognized Mnemonic ';clr'
+3571: Warning --- Indexed Addressing Assumed
+3572: Unrecognized Mnemonic ';clr'
+3573: Warning --- Indexed Addressing Assumed
+3577: Unrecognized Mnemonic ';ldx'
+3579: Unrecognized Mnemonic ';cmpa'
+3582: Unrecognized Mnemonic ';inc'
+3585: Unrecognized Mnemonic ';jsr'
+3586: Warning --- Indexed Addressing Assumed
+3589: Unrecognized Mnemonic ';dec'
+3596: Illegal Symbol Name
+3600: Unrecognized Mnemonic 'page'
+3613: Unrecognized Mnemonic ';pulx'
+3614: Unrecognized Mnemonic 'tsx'
+3616: Unrecognized Mnemonic 'ins'
+3617: Unrecognized Mnemonic 'ins'
+3619: Unrecognized Mnemonic ';ldx'
+3621: Unrecognized Mnemonic ';'
+3625: Illegal Symbol Name
+3626: Unrecognized Mnemonic ';'
+3627: Unrecognized Mnemonic ';leas'
+3628: Unrecognized Mnemonic 'if'
+3629: Unrecognized Mnemonic 'rpt'
+3630: Unrecognized Mnemonic 'des'
+3631: Unrecognized Mnemonic 'else'
+3632: Unrecognized Mnemonic 'rpt'
+3633: Unrecognized Mnemonic 'ins'
+3634: Unrecognized Mnemonic 'fin'
+3635: Unrecognized Mnemonic ';'
+3636: Unrecognized Mnemonic ';ldx'
+3637: Unrecognized Mnemonic 'tsx'
+3640: Unrecognized Mnemonic 'if'
+3642: Unrecognized Mnemonic 'else'
+3643: Unrecognized Mnemonic ';cmpa'
+3647: Unrecognized Mnemonic ';'
+3648: Unrecognized Mnemonic 'fin'
+3650: Unrecognized Mnemonic ';cmpa'
+3653: Unrecognized Mnemonic ';ldx'
+3655: Unrecognized Mnemonic 'errorrts'
+3656: Illegal Symbol Name
+3657: Unrecognized Mnemonic ';'
+3660: Unrecognized Mnemonic 'errorrts'
+3666: Unrecognized Mnemonic ';ldx'
+3668: Unrecognized Mnemonic ';ldx'
+3669: Warning --- Indexed Addressing Assumed
+3671: Unrecognized Mnemonic ';ldx'
+3672: Warning --- Indexed Addressing Assumed
+3678: Illegal Symbol Name
+3682: Illegal Symbol Name
+3686: Illegal Symbol Name
+3697: Unrecognized Mnemonic ';ldx'
+3698: Warning --- Indexed Addressing Assumed
+3701: Unrecognized Mnemonic ';ldx'
+3703: Unrecognized Mnemonic ';ldx'
+3704: Warning --- Indexed Addressing Assumed
+3706: Unrecognized Mnemonic ';ldx'
+3709: Unrecognized Mnemonic 'okrts'
+3716: Unrecognized Mnemonic ';'
+3717: Unrecognized Mnemonic ';ldx'
+3718: Warning --- Indexed Addressing Assumed
+3720: Unrecognized Mnemonic 'okrts'
+3721: Unrecognized Mnemonic 'page'
+3727: Unrecognized Mnemonic ';ldx'
+3729: Warning --- Indexed Addressing Assumed
+3730: Unrecognized Mnemonic ';ldx'
+3732: Unrecognized Mnemonic ';cmpb'
+3733: Warning --- Indexed Addressing Assumed
+3736: Unrecognized Mnemonic ';asld'
+3737: Unrecognized Mnemonic 'aslb'
+3738: Unrecognized Mnemonic 'rola'
+3739: Unrecognized Mnemonic ';addd'
+3740: Warning --- Indexed Addressing Assumed
+3741: Warning --- Indexed Addressing Assumed
+3742: Unrecognized Mnemonic ';tdx'
+3746: Unrecognized Mnemonic ';ldx'
+3750: Unrecognized Mnemonic 'okrts'
+3751: Illegal Symbol Name
+3752: Unrecognized Mnemonic ';'
+3756: Unrecognized Mnemonic ';ldx'
+3758: Unrecognized Mnemonic ';cmpb'
+3761: Unrecognized Mnemonic ';ldx'
+3764: Unrecognized Mnemonic 'page'
+3772: Unrecognized Mnemonic ';cmpa'
+3775: Unrecognized Mnemonic ';cmpa'
+3778: Illegal Symbol Name
+3781: Unrecognized Mnemonic 'rts'
+3791: Unrecognized Mnemonic ';cmpa'
+3794: Unrecognized Mnemonic ';cmpa'
+3798: Unrecognized Mnemonic ';'
+3800: Illegal Symbol Name
+3801: Unrecognized Mnemonic ';'
+3802: Unrecognized Mnemonic ';cmpa'
+3805: Unrecognized Mnemonic ';cmpa'
+3807: Unrecognized Mnemonic 'rts'
+3808: Unrecognized Mnemonic 'page'
+3817: Unrecognized Mnemonic ';ldx'
+3819: Unrecognized Mnemonic ';ldx'
+3820: Warning --- Indexed Addressing Assumed
+3822: Unrecognized Mnemonic ';ldx'
+3824: Unrecognized Mnemonic ';ldx'
+3825: Warning --- Indexed Addressing Assumed
+3827: Unrecognized Mnemonic ';'
+3828: Unrecognized Mnemonic ';ldx'
+3833: Unrecognized Mnemonic ';ldx'
+3835: Unrecognized Mnemonic ';lda'
+3837: Unrecognized Mnemonic 'inx'
+3841: Unrecognized Mnemonic ';'
+3842: Unrecognized Mnemonic ';cmpa'
+3845: Unrecognized Mnemonic 'page'
+3848: Unrecognized Mnemonic ';ldx'
+3850: Unrecognized Mnemonic ';ldx'
+3851: Warning --- Indexed Addressing Assumed
+3854: Unrecognized Mnemonic ';ldx'
+3855: Warning --- Indexed Addressing Assumed
+3858: Unrecognized Mnemonic ';ldx'
+3860: Unrecognized Mnemonic ';ldx'
+3861: Warning --- Indexed Addressing Assumed
+3863: Unrecognized Mnemonic ';ldx'
+3866: Unrecognized Mnemonic ';ldx'
+3873: Unrecognized Mnemonic ';ldx'
+3875: Unrecognized Mnemonic ';ldx'
+3876: Warning --- Indexed Addressing Assumed
+3877: Unrecognized Mnemonic ';'
+3879: Unrecognized Mnemonic ';ldx'
+3880: Warning --- Indexed Addressing Assumed
+3882: Unrecognized Mnemonic ';ldx'
+3884: Unrecognized Mnemonic ';ldx'
+3885: Warning --- Indexed Addressing Assumed
+3888: Unrecognized Mnemonic ';ldx'
+3890: Unrecognized Mnemonic ';ldx'
+3891: Warning --- Indexed Addressing Assumed
+3893: Unrecognized Mnemonic ';jsr'
+3896: Unrecognized Mnemonic 'page'
+3901: Unrecognized Mnemonic ';ldx'
+3903: Unrecognized Mnemonic ';ldx'
+3904: Warning --- Indexed Addressing Assumed
+3906: Unrecognized Mnemonic ';ldx'
+3910: Unrecognized Mnemonic ';ldx'
+3915: Unrecognized Mnemonic ';ldx'
+3917: Unrecognized Mnemonic ';ldd'
+3918: Warning --- Indexed Addressing Assumed
+3919: Warning --- Indexed Addressing Assumed
+3920: Unrecognized Mnemonic ';subd'
+3923: Unrecognized Mnemonic ';ldx'
+3924: Warning --- Indexed Addressing Assumed
+3925: Unrecognized Mnemonic ';std'
+3926: Warning --- Indexed Addressing Assumed
+3928: Unrecognized Mnemonic 'rts'
+3931: Unrecognized Mnemonic ';ldx'
+3934: Unrecognized Mnemonic ';ldx'
+3937: Unrecognized Mnemonic ';cmpa'
+3940: Unrecognized Mnemonic ';'
+3941: Unrecognized Mnemonic ';ldx'
+3944: Illegal Symbol Name
+3947: Unrecognized Mnemonic 'page'
+3956: Unrecognized Mnemonic ';'
+3958: Unrecognized Mnemonic ';ldx'
+3960: Unrecognized Mnemonic ';ldx'
+3961: Warning --- Indexed Addressing Assumed
+3964: Unrecognized Mnemonic ';ldx'
+3966: Unrecognized Mnemonic ';ldx'
+3967: Warning --- Indexed Addressing Assumed
+3969: Unrecognized Mnemonic ';'
+3970: Unrecognized Mnemonic ';ldx'
+3972: Unrecognized Mnemonic ';lda'
+3974: Unrecognized Mnemonic 'inx'
+3976: Unrecognized Mnemonic ';cmpa'
+3979: Unrecognized Mnemonic ';cmpa'
+3983: Unrecognized Mnemonic ';'
+3984: Unrecognized Mnemonic ';ldx'
+3986: Unrecognized Mnemonic ';cmpa'
+3991: Unrecognized Mnemonic ';ldx'
+3996: Unrecognized Mnemonic ';'
+3997: Unrecognized Mnemonic ';lda'
+4001: Unrecognized Mnemonic ';ldx'
+4003: Unrecognized Mnemonic 'okrts'
+4004: Illegal Symbol Name
+4005: Unrecognized Mnemonic ';'
+4006: Unrecognized Mnemonic 'errorrts'
+4007: Illegal Symbol Name
+4008: Unrecognized Mnemonic ';'
+4009: Unrecognized Mnemonic ';ldx'
+4011: Unrecognized Mnemonic 
